@@ -43,4 +43,40 @@ class DAOOperaciones {
             return $resultado;
     }
     
+    /**
+     * Metodo que devuelve las estanterias que tienen
+     * lejas libres para poder insertar cajas
+     * @return estanterias libres
+     */
+    public function dameEstanteriasConLejasLibres() {
+        
+        $orden = "SELECT * FROM estanterias WHERE ocupadas is null";
+        
+        global $conn;
+        
+        $resultado = $conn -> query($orden);
+        
+        if($resultado->num_rows>0){
+         
+            $i=0;
+        
+            while ($array=$resultado->fetch_array()){
+                $claves = array_keys($array);
+             
+                foreach($claves as $clave){
+                    $arrayauxliar[$i][$clave]=$array[$clave];
+                }           
+            
+                $i++;
+            }
+        
+                return $arrayauxliar;
+
+            }else{
+                return null;
+            }
+        
+        
+    }
+    
 }

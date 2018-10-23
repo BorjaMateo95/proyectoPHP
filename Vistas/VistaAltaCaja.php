@@ -39,15 +39,29 @@ and open the template in the editor.
                 
                 <label>Contenido</label>
                 <input type="text" id="contenido" name="contenido" placeholder="Contenido" required="true"><br>
-                                
+                
+        <?php
+              include '../DAO/DAOOperaciones.php';
+              
+              $estanteriasLibres = DAOOperaciones::dameEstanteriasConLejasLibres();
+              
+              
+              echo "<label>Estanterias con lejas libres </label>";
+              
+              echo "<select name='estanteriasDisponibles'>";
+              for ($i = 0; $i < count($estanteriasLibres); $i++){
+                    echo "<option value=". $i ."'>Codigo " . $estanteriasLibres[$i][1] . "</option>";
+              }
+              echo "</select>";
+              echo "</br>";
+               
+        ?>          
                 <input type="submit" value="Guardar" id="guardar">
                 
             </form>
         </div>
         
         </center>
-        <?php
-        // put your code here
-        ?>
+  
     </body>
 </html>
