@@ -6,3 +6,20 @@
  * and open the template in the editor.
  */
 
+$servername = "localhost";
+$dbname = "bd_empleados";
+$password = "root";
+$username = "root";
+
+
+@ $conn = new mysqli($servername, $username, "", $dbname);
+$error = $conn->connect_errno;
+
+if ($error != null) {
+    echo "<p>Error $error conectando a la base de datos:
+    $conn->connect_error</p>";
+    exit();
+}else{
+    
+}
+
