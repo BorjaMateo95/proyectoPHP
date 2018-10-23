@@ -23,13 +23,13 @@ and open the template in the editor.
                 <input type="text" id="codigo" name="codigo" placeholder="Codigo" required="true"><br>
 
                 <label>Numero de Lejas</label>
-                <input type="text" id="nLejas" name="Numero de Lejas" placeholder="Numero de Lejas" required="true"><br>
+                <input type="text" id="nLejas" name="nLejas" placeholder="Numero de Lejas" required="true"><br>
                 
                 <label>Pasillo</label>
                 <input type="text" id="pasillo" name="pasillo" placeholder="Pasillo" required="true"><br>
                 
                 <label>Numero</label>
-                <input type="number" id="numero" name="Numero" placeholder="Numero" required="true"><br>
+                <input type="number" id="numero" name="numero" placeholder="Numero" required="true"><br>
                 
                 <input type="submit" value="Guardar" id="guardar">
                 

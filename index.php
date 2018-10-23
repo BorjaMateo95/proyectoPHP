@@ -18,10 +18,7 @@ and open the template in the editor.
         <nav>
             <ul id="button">
                 <li><a href="Vistas/VistaAltaEstanteria.php">Alta Estanteria</a></li>
-                <li><a href="Controladores/ListadoEmpleados.php">Listado General</a></li>
-                <li><a href="Vistas/BorrarEmpleadoVista.php">Borrar Empleado</a></li>
-                <li><a href="Vistas/ListadoDepartamentoVista.php">Listar Departamento</a></li>
-                <li><a href="Vistas/ListadoEmpleadoPorDepartamentoVista.php">Listar Empleados por Departamento</a></li>
+                <li><a href="Vistas/VistaAltaCaja.php">Alta Caja</a></li>
             </ul>
         </nav>
         

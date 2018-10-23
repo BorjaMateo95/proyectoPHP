@@ -7,7 +7,7 @@
  */
 
 $servername = "localhost";
-$dbname = "bd_empleados";
+$dbname = "bd_almacen_bml";
 $password = "root";
 $username = "root";
 
@@ -19,7 +19,5 @@ if ($error != null) {
     echo "<p>Error $error conectando a la base de datos:
     $conn->connect_error</p>";
     exit();
-}else{
-    
 }
 
