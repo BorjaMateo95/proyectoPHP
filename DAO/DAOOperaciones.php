@@ -50,7 +50,7 @@ class DAOOperaciones {
      */
     public function dameEstanteriasConLejasLibres() {
         
-        $orden = "SELECT * FROM estanterias WHERE ocupadas is null";
+        $orden = "SELECT * FROM estanterias WHERE ocupadas is null OR numLejas != ocupadas";
         
         global $conn;
         
@@ -78,5 +78,29 @@ class DAOOperaciones {
         
         
     }
+    
+    
+    public function dimeLejasLibres($idEstanteria) {
+        
+        $orden = "SELECT numlejas FROM ocupacion";
+        
+        global $conn;
+        
+        $consulta = mysqli_query($conn, $orden) or die("Instrucción errónea") or die("Fallo en la consulta");
+        $nfilas = mysqli_num_rows($consulta);
+        
+        if ($nfilas > 0) {
+            $j = 0;
+            for ($i = 0; $i < $nfilas; $i++) {
+                $fila = mysqli_fetch_array($consulta);
+            }
+            
+            return $fila;
+            
+        }
+         
+    }
+    
+    
     
 }

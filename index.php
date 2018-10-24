@@ -18,7 +18,7 @@ and open the template in the editor.
         <nav>
             <ul id="button">
                 <li><a href="Vistas/VistaAltaEstanteria.php">Alta Estanteria</a></li>
-                <li><a href="Vistas/VistaAltaCaja.php">Alta Caja</a></li>
+                <li><a href="Controladores/ControladorAltaCajaEstanterias.php">Alta Caja</a></li>
             </ul>
         </nav>
         

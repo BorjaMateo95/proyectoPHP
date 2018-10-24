@@ -10,6 +10,8 @@ and open the template in the editor.
         <title>Alta Caja</title>
         
         <link href="../Estilos/EstiloAltaEstanteria.css" type="text/css" rel="stylesheet">
+        
+        <script type="text/javascript" src="../JS/JSControlLejasLibres.js"></script>
 
     </head>
     <body>
@@ -41,21 +43,38 @@ and open the template in the editor.
                 <input type="text" id="contenido" name="contenido" placeholder="Contenido" required="true"><br>
                 
         <?php
-              include '../DAO/DAOOperaciones.php';
+              session_start();
               
-              $estanteriasLibres = DAOOperaciones::dameEstanteriasConLejasLibres();
-              
+              $estanteriasLibres = $_SESSION['estanterias'];
               
               echo "<label>Estanterias con lejas libres </label>";
               
-              echo "<select name='estanteriasDisponibles'>";
+              echo "<select name='estanteriasDisponibles' onchange='cargaLejasLibres(this.value)'>";
               for ($i = 0; $i < count($estanteriasLibres); $i++){
-                    echo "<option value=". $i ."'>Codigo " . $estanteriasLibres[$i][1] . "</option>";
+                    echo "<option value=". $estanteriasLibres[$i][0] .">Codigo " . $estanteriasLibres[$i][1] . "</option>";
               }
               echo "</select>";
-              echo "</br>";
                
-        ?>          
+        ?>     
+                
+                
+                <label>Nº de Lejas libres</label>
+                <select id="listaLejas" name="listaLejas">
+                    
+              <?php
+              
+                session_start();
+                $lejas = $_REQUEST['resultado'];
+                
+                for($i = 0; i < $lejas; $i++) {
+                    echo "<option>" . $lejas . "</option>";
+                }
+              
+              ?>
+
+                </select>
+                
+                <br>
                 <input type="submit" value="Guardar" id="guardar">
                 
             </form>
