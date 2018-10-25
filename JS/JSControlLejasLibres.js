@@ -1,6 +1,6 @@
 
 function cargaLejasLibres(str) {
-    
+        
     var xmlhttp;
     if (str == "") {
         document.getElementById("estanteriasDisponibles").innerHTML = "";
@@ -15,7 +15,7 @@ function cargaLejasLibres(str) {
 
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            document.getElementById("estanteriasDisponibles").innerHTML = xmlhttp.responseText;
+            document.getElementById("listaLejas").innerHTML = xmlhttp.responseText;
             
         }
     }

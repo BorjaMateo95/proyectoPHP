@@ -7,6 +7,7 @@
  */
 
 include 'ConexionBD.php';
+include_once '../Modelos/Estanteria.php';
 
 class DAOOperaciones {
     
@@ -49,56 +50,90 @@ class DAOOperaciones {
      * @return estanterias libres
      */
     public function dameEstanteriasConLejasLibres() {
-        
         $orden = "SELECT * FROM estanterias WHERE ocupadas is null OR numLejas != ocupadas";
         
         global $conn;
         
         $resultado = $conn -> query($orden);
+        $arrayEstanterias = array();
         
-        if($resultado->num_rows>0){
-         
-            $i=0;
-        
-            while ($array=$resultado->fetch_array()){
-                $claves = array_keys($array);
-             
-                foreach($claves as $clave){
-                    $arrayauxliar[$i][$clave]=$array[$clave];
-                }           
-            
-                $i++;
+        if ($resultado) {
+            $fila = $resultado->fetch_array();
+            while ($fila) {
+                $estanteria = new Estanteria($fila['codigo'], $fila['numlejas'], $fila['pasillo'], $fila['numero']);
+                $estanteria->setId($fila['id']);
+                $estanteria->setOcupadas($fila['ocupadas']);
+                array_push($arrayEstanterias, $estanteria);
+                $fila = $resultado->fetch_array();
             }
-        
-                return $arrayauxliar;
-
-            }else{
-                return null;
-            }
-        
-        
+        } else {
+            return null;
+        }
+        $conn->close();
+        return $arrayEstanterias;
     }
     
     
+    /**
+     * dimeLejasLibres(idEstanteria) nos devuelve las lejas libres de una estanteria
+     * @global type $conn
+     * @param type $idEstanteria
+     * @return array
+     */
+    
     public function dimeLejasLibres($idEstanteria) {
-        
-        $orden = "SELECT numlejas FROM ocupacion";
-        
         global $conn;
         
-        $consulta = mysqli_query($conn, $orden) or die("Instrucción errónea") or die("Fallo en la consulta");
-        $nfilas = mysqli_num_rows($consulta);
+        $sqlEstanteria = "SELECT * FROM estanterias WHERE id = '$idEstanteria'";
         
-        if ($nfilas > 0) {
-            $j = 0;
-            for ($i = 0; $i < $nfilas; $i++) {
-                $fila = mysqli_fetch_array($consulta);
+        $resultadosqlEstanteria = $conn->query($sqlEstanteria);
+        $fila = $resultadosqlEstanteria->fetch_array();
+        $totalLejasEstanteria = $fila['numlejas'];//tenemos el total de lejas de una estanteria
+        
+        $totalLejasArray = array();//array con el total de lejas
+        for ($i = 1; $i < $totalLejasEstanteria+1; $i++) {
+              array_push($totalLejasArray, $i);
+        }
+                
+        $sqlOcupacion = "SELECT * FROM ocupacion WHERE idEstanteria = '" . $idEstanteria . "';";
+        $resulSqlOcupacion = $conn->query($sqlOcupacion);
+        $numeroFilasDevuelto = $resulSqlOcupacion->num_rows;
+        
+        if ($numeroFilasDevuelto > 0) {//si tenemos alguna ocupacion de esa estanteria
+            $filaOcupacion = $resulSqlOcupacion->fetch_array();//la fila del select de ocupacion
+            
+            $arrayLejasOcupadas = array();//array con las lejas ocupadas
+            while ($filaOcupacion) {
+                array_push($arrayLejasOcupadas, $filaOcupacion['nLeja']);
+                $filaOcupacion = $resulSqlOcupacion->fetch_array();
             }
             
-            return $fila;
+                                 
+            $arrayLejasLibres = array();   
+            for ($i = 0; $i < count($totalLejasArray); $i++) {
+                               
+                $meterAlArray = true;
+                
+                for($e = 0; $e < count($arrayLejasOcupadas); $e++) {
+                    if($totalLejasArray[$i] == $arrayLejasOcupadas[$e]) {
+                        $meterAlArray = false;
+                        break;
+                    }
+                    
+                }
+                    
+                    if($meterAlArray) {
+                        array_push($arrayLejasLibres, $totalLejasArray[$i]);
+                    }
+                   
+            }
             
+            return $arrayLejasLibres;
+            
+        }else{
+            return $totalLejasArray;
         }
-         
+
     }
     
     

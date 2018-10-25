@@ -43,34 +43,27 @@ and open the template in the editor.
                 <input type="text" id="contenido" name="contenido" placeholder="Contenido" required="true"><br>
                 
         <?php
+              include_once '../Modelos/Estanteria.php';
               session_start();
               
               $estanteriasLibres = $_SESSION['estanterias'];
-              
+
               echo "<label>Estanterias con lejas libres </label>";
               
-              echo "<select name='estanteriasDisponibles' onchange='cargaLejasLibres(this.value)'>";
+              echo "<select id='estanteriasDisponibles' onchange='cargaLejasLibres(this.value)'>";
+              echo "<option value=0>Selecciona Estanteria</option>";
               for ($i = 0; $i < count($estanteriasLibres); $i++){
-                    echo "<option value=". $estanteriasLibres[$i][0] .">Codigo " . $estanteriasLibres[$i][1] . "</option>";
+                    echo "<option value=". $estanteriasLibres[$i]->getId() .">Codigo " . $estanteriasLibres[$i]->getCodigo() . "</option>";
               }
+              
               echo "</select>";
                
         ?>     
                 
                 
-                <label>Nº de Lejas libres</label>
+                <label>Lejas libres</label>
                 <select id="listaLejas" name="listaLejas">
-                    
-              <?php
-              
-                session_start();
-                $lejas = $_REQUEST['resultado'];
-                
-                for($i = 0; i < $lejas; $i++) {
-                    echo "<option>" . $lejas . "</option>";
-                }
-              
-              ?>
+                   
 
                 </select>
                 

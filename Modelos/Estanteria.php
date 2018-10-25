@@ -20,8 +20,12 @@ class Estanteria {
         $this->pasillo = $pasillo;
         $this->numero = $numero;
     }
-
     
+    function setId($id) {
+        $this->id = $id;
+    }
+
+         
     
     function getId() {
         return $this->id;

@@ -7,8 +7,14 @@ $idEstanteria = $_REQUEST['idestanteria'];
 
 $resultado = DAOOperaciones::dimeLejasLibres($idEstanteria);
 
+//$prueba = array();
+//$prueba[0] = "Primer";
+//$prueba[1] = "Segun";
+//$prueba[2] = "Tercer";
 
-header('Location: ../Vistas/VistaAltaCaja.php?resultado=' . $resultado);
+$_SESSION['lejas'] = $resultado;
+
+header('Location: ../Vistas/VistaLejasDisponibles.php');
 
 
 ?>
