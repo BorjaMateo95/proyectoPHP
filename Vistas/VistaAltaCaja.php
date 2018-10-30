@@ -50,7 +50,7 @@ and open the template in the editor.
 
               echo "<label>Estanterias con lejas libres </label>";
               
-              echo "<select id='estanteriasDisponibles' onchange='cargaLejasLibres(this.value)'>";
+              echo "<select id='estanteriasDisponibles' name='estanteriasDisponibles' onchange='cargaLejasLibres(this.value)'>";
               echo "<option value=0>Selecciona Estanteria</option>";
               for ($i = 0; $i < count($estanteriasLibres); $i++){
                     echo "<option value=". $estanteriasLibres[$i]->getId() .">Codigo " . $estanteriasLibres[$i]->getCodigo() . "</option>";

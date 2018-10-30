@@ -12,6 +12,10 @@ and open the template in the editor.
     <body>
         <?php
         
+        if($_GET['id'] == "2") {
+                echo $_GET['filas'];
+            }
+        
             if($_GET['id'] == "1") {
                 
                 if($_GET['filas'] == "1") {
@@ -20,6 +24,8 @@ and open the template in the editor.
                     echo "ERROR al insertar Estanteria " . $_GET['filas'];
                 }
             }
+            
+            
         ?>
         
           <br>

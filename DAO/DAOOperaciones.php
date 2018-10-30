@@ -8,6 +8,10 @@
 
 include 'ConexionBD.php';
 include_once '../Modelos/Estanteria.php';
+include_once '../Modelos/Caja.php';
+include_once '../Modelos/CajaConLeja.php';
+include_once '../Modelos/EstanteriaConCajas.php';
+include_once '../Modelos/Inventario.php';
 
 class DAOOperaciones {
     
@@ -29,20 +33,62 @@ class DAOOperaciones {
     
      /**
      * Metodo para insertar Cajas en lejas de una estanteria.
-     * Recibe un objeto de tipo Caja
+     * Recibe un objeto de tipo Caja y un objeto Ocupacion
      * @return resultado de la query
      */    
-    public function insertaCaja($caja) {
+    public function insertaCaja($caja, $ocupacion) {        
+        global $conn;
+        //cajas
         $orden = "INSERT INTO cajas VALUES (null, '" . 
-                $caja->getCodigo() . "', " . $caja->getAltura()
+                  $caja->getCodigo() . "', " . $caja->getAltura()
                 . ", " . $caja->getAnchura() . ", " . $caja->getProfundidad()
-                . ", '" . $caja->getMaterial() . "', '" . $caja->getColor() . "', '" . $caja->getContenido() . "')";
+                . ", '" . $caja->getMaterial() . "', '" . $caja->getColor() .
+                "', '" . $caja->getContenido() . "')";
+        
+        $resultado = $conn->query($orden);
+        
+        if($conn->affected_rows < 1) {//si se cumple no ha insertado caja
+            throw new MiException(1, "Error al insertar la caja");       
+        }
+        
+        //ocupacion
+        $ocupacion->setIdCaja($conn->insert_id);
+        $ordenInsertOcupacion = "INSERT INTO ocupacion VALUES (null, " . $ocupacion->getIdCaja() .
+                ", " . $ocupacion->getIdEstanteria() . ", " . $ocupacion->getNumeroLeja() . ")";
+        
+        $resultado = $conn->query($ordenInsertOcupacion);
+        
+        if($conn->affected_rows < 1) {
+            throw new MiException(1, "Error al insertar ocupación");
+        }
+        
+        //estanteria (sumar uno en ocupacion)
+        $ordenSelectEstanteria = "SELECT * FROM estanterias WHERE id = " . $ocupacion->getIdEstanteria();
+        $resultado = $conn->query($ordenSelectEstanteria);
+        
+        if ($resultado) {
+            $fila = $resultado->fetch_array();
+           
+            if($fila['ocupadas'] == null) {
+                $nuevaOcupacion = 1;
+            }else{
+                $nuevaOcupacion = $fila['ocupadas'] + 1;
+            }
             
-            global $conn;
-            $resultado = $conn -> query($orden);
+            $updateEstanteria = "UPDATE estanterias SET ocupadas =" . $nuevaOcupacion . " WHERE id =" . $fila['id'];
+            $resultado = $conn->query($updateEstanteria);
             
-            return $resultado;
+            if($conn->affected_rows < 1) {
+                throw new MiException(1, "Error al actualizar la estanteria"); 
+            }
+                  
+        }else{
+            throw new MiException(1, "Error consultar la estanteria");
+        }      
+
     }
+    
+    
     
     /**
      * Metodo que devuelve las estanterias que tienen
@@ -131,9 +177,15 @@ class DAOOperaciones {
             return $arrayLejasLibres;
             
         }else{
+            //SI ESA ESTANTERIA NO ESTA EN OCUPACION NOS DEVUELVE UN ARRAY CON EL TOTAL DE LEJAS
             return $totalLejasArray;
         }
 
+    }
+    
+    
+    public function dameInventario() {
+        
     }
     
     
