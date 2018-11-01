@@ -11,6 +11,9 @@ and open the template in the editor.
         <title>Proyecto Cajas</title>
         
         <link href="Estilos/Estilo.css" type="text/css" rel="stylesheet">
+        <link href="Estilos/bootstrap.min.css" type="text/css" rel="stylesheet">
+        
+
         
     </head>
     <body>
@@ -23,8 +26,10 @@ and open the template in the editor.
             </ul>
         </nav>
         
+        
         <?php
         // put your code here
         ?>
+        
     </body>
 </html>

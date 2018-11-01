@@ -185,6 +185,63 @@ class DAOOperaciones {
     
     
     public function dameInventario() {
+        global $conn;
+        
+        $sqlEstanterias = "SELECT * FROM estanterias ORDER BY pasillo, numero, codigo";
+        $resulEstanterias = $conn->query($sqlEstanterias);
+        
+        $arrayEstanterias = array();
+        
+        if ($resulEstanterias) {
+            for($e = 0; $e < $resulEstanterias->num_rows; $e++) {
+                $fila = $resulEstanterias->fetch_array();
+                $estanteriaConCaja = new EstanteriaConCajas($fila['codigo'], $fila['numlejas'],
+                                                        $fila['pasillo'], $fila['numero'], null);
+                $estanteriaConCaja->setOcupadas($fila['ocupadas']);
+                
+                array_push($arrayEstanterias, $estanteriaConCaja);
+                
+                if ($fila['ocupadas'] != null) {
+                    //esa estanteria debe de tener cajas
+                    $sqlOcupadas = "SELECT * FROM ocupacion WHERE idEstanteria = " . $fila['id'];
+                    $resultadoOcupacion = $conn->query($sqlOcupadas);
+                    $arrayCajas = array();
+                    
+                    if ($resultadoOcupacion) {
+                        for ($i = 0; $i < $resultadoOcupacion->num_rows; $i++) {
+                            $filasOcupacion = $resultadoOcupacion->fetch_array();
+                            $sqlCajas = "SELECT * FROM cajas WHERE id = " . $filasOcupacion['idCaja'];
+                            $resultadoCajas = $conn->query($sqlCajas);
+                            $filaCaja = $resultadoCajas->fetch_array();
+                            $cajaConLeja = new CajaConLeja($filaCaja['codigo'], $filaCaja['altura'], 
+                                    $filaCaja['anchura'], $filaCaja['profundidad'], $filaCaja['material'],
+                                    $filaCaja['color'], $filaCaja['contenido'], $filasOcupacion['nLeja']);
+                            
+                            array_push($arrayCajas, $cajaConLeja);
+                           
+ 
+                        }
+                        
+                        $estanteriaConCaja->setArrayCajasConLeja($arrayCajas);
+                    }           
+                }  
+            }
+            
+            $fecha = date("d/m/y");
+            
+            $inventario = new Inventario($arrayEstanterias, date("F j, Y, g:i a"));
+            
+            return $inventario;
+            
+        }else{
+            //quitar return y sino tenemos nada sacamos un trhow new Exception.
+            return "No hay estanterias para listar";
+        }
+        
+        $conn->close();
+        return $array;
+        
+        
         
     }
     
