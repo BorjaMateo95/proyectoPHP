@@ -9,9 +9,9 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title>Alta Caja</title>
         
-        <link href="../Estilos/EstiloAltaEstanteria.css" type="text/css" rel="stylesheet">
+        <link href="Estilos/EstiloAltaEstanteria.css" type="text/css" rel="stylesheet">
         
-        <script type="text/javascript" src="../JS/JSControlLejasLibres.js"></script>
+        <script type="text/javascript" src="JS/JSControlLejasLibres.js"></script>
 
     </head>
     <body>

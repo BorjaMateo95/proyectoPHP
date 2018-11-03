@@ -10,7 +10,7 @@ and open the template in the editor.
 
         <title>Proyecto Cajas</title>
 
-        <link href="Estilos/Estilo.css" type="text/css" rel="stylesheet">
+        <link href="Vistas/Estilos/Estilo.css" type="text/css" rel="stylesheet">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>        
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
@@ -22,23 +22,17 @@ and open the template in the editor.
 
     </head>
     <body>
-        <!--
-        <nav>
-            <ul id="button">
-                <li><a href="Vistas/VistaAltaEstanteria.php">Alta Estanteria</a></li>
-                <li><a href="Controladores/ControladorAltaCajaEstanterias.php">Alta Caja</a></li>
-                <li><a href="Controladores/ControladorInventario.php">Inventario</a></li>
-            </ul>
-        </nav>
-        
-        -->
-
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            
+            <div>
+                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Menu</a>
+            </div>
+
 
             <div class="container">
                 <a class="navbar-brand" href="./"><b>Almacen Borja</b></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button"  aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -46,23 +40,10 @@ and open the template in the editor.
 
                     <ul class="navbar-nav mr-auto">
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">INICIO <span class="sr-only">(current)</span></a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">BLOG</a>
-                        </li>
-
                     </ul>
 
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar ..." aria-label="Buscar ...">
-                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">BUSCAR</button>
-                    </form>
-
-                    <a class="btn btn-outline-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="#">REGISTRATE</a>
-                    <a class="btn btn-outline-info d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="#">INGRESAR</a>
+                    <a class="btn btn-outline-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="#">Inicia Sesion</a>
+                    <a class="btn btn-outline-info d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="#">Registrate</a>
 
                 </div>
 
@@ -73,7 +54,40 @@ and open the template in the editor.
         <?php
         // put your code here
         ?>
+        
+        <div id="wrapper">
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <a href="#">
+                            Almacen Borja
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Vistas/VistaAltaEstanteria.php">Alta Estanteria</a>
+                    </li>
+                    <li>
+                        <a href="Controladores/ControladorAltaCajaEstanterias.php">Alta Caja</a>
+                    </li>
+                    <li>
+                        <a href="Controladores/ControladorInventario.php">Inventario</a>
+                    </li>
+                    <li>
+                        <a href="Vistas/VistaVentaCaja.php">Vender Caja</a>
+                    </li>
+                    <li>
+                        <a href="#">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
+        <script>
+       $("#menu-toggle").click(function(e) {
+           e.preventDefault();
+           $("#wrapper").toggleClass("toggled");
+       });
+        </script>
 
     </body>
 </html>

@@ -12,6 +12,7 @@ include_once '../Modelos/Caja.php';
 include_once '../Modelos/CajaConLeja.php';
 include_once '../Modelos/EstanteriaConCajas.php';
 include_once '../Modelos/Inventario.php';
+include_once '../Excepciones/MiException.php';
 
 class DAOOperaciones {
     
@@ -240,9 +241,45 @@ class DAOOperaciones {
         
         $conn->close();
         return $array;
+                
+    }
+    
+    
+    public function dimeDescripcionUnaCaja($codcaja) {
+        global $conn;
+        $sqlCaja = "SELECT * FROM cajas WHERE codigo = '$codcaja'";
         
+        $resultadosqlCaja = $conn->query($sqlCaja);
         
+        if($resultadosqlCaja->num_rows > 0) {
+            
+            $fila = $resultadosqlCaja->fetch_array();
+            
+            $caja = new Caja($fila['codigo'], $fila['altura'], 
+                                    $fila['anchura'], $fila['profundidad'], $fila['material'],
+                                    $fila['color'], $fila['contenido']);
+            
+            return $caja;
+            
+            
+        }else{
+            throw new MiException(1, "Esta caja no existe"); 
+        }
         
+    }
+    
+    public function salidaCaja($codigo) {
+        $sqlDelete = "DELETE FROM cajas WHERE codigo='" . $codigo . "';";
+        $respuesta = $conn->query($sqlDelete);
+        
+        if ($respuesta->num_rows > 0) {
+            
+        } else {
+            
+            throw new MiException(1, "No se ha podido vender la caja");
+        }
+        
+        $conn->close();
     }
     
     

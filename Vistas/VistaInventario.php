@@ -11,7 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-                      
+        
             include_once '../Modelos/Caja.php';
             include_once '../Modelos/Estanteria.php';
             include_once '../Modelos/Inventario.php';

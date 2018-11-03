@@ -84,6 +84,8 @@ class Caja {
     function setContenido($contenido) {
         $this->contenido = $contenido;
     }
+ 
+
 
 
 
