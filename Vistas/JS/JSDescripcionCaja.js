@@ -1,5 +1,5 @@
 
-function buscaCaja(str) {
+function buscaCaja(str, opcion) {
     
 var xmlhttp;
     if (str == "") {
@@ -20,7 +20,7 @@ var xmlhttp;
         }
     }
     
-    xmlhttp.open("GET", "../Controladores/ControladorAJAXDescriCaja.php?codcaja=" + str, true);
+    xmlhttp.open("GET", "../Controladores/ControladorAJAXDescriCaja.php?codcaja=" + str + "&opcion=" + opcion, true);
     xmlhttp.send();
 
 

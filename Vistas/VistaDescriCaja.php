@@ -12,11 +12,17 @@ and open the template in the editor.
     <body>
         <?php
             include_once '../Modelos/Caja.php';
+            include_once '../Modelos/CajaBackup.php';
+            
             session_start();
+            $opcion = $_REQUEST["opcion"];
             $caja = $_SESSION["caja"];
+            
             ?>
                     <label>
-                        <?php echo "Codigo: " .$caja->getCodigo() . " Altura: " . $caja->getAltura() . " Anchura: " . $caja->getAnchura(); ?>
+                        
+                        <?php echo "Codigo: " .$caja->getCodigo() . " Altura: " . $caja->getAltura()
+                                . " Anchura: " . $caja->getAnchura(); ?>
                     </label>
              <?php
             

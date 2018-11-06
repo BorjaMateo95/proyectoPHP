@@ -7,6 +7,9 @@
             <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaDescriCaja.php</file>
             <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorAJAXDescriCaja.php</file>
             <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/JS/JSDescripcionCaja.js</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/DAO/DAOOperaciones.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaErrores.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorVentaCaja.php</file>
         </group>
     </open-files>
 </project-private>

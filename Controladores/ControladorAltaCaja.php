@@ -1,9 +1,9 @@
 <?php
 
-include '../DAO/DAOOperaciones.php';
-include '../Modelos/Caja.php';
-include '../Modelos/Ocupacion.php';
-include '../Excepciones/MiException.php';
+include_once '../DAO/DAOOperaciones.php';
+include_once '../Modelos/Caja.php';
+include_once '../Modelos/Ocupacion.php';
+include_once '../Excepciones/MiException.php';
 
 //DATOS CAJA
 $codigo = $_REQUEST['codigo'];
@@ -18,14 +18,14 @@ $contenido = $_REQUEST['contenido'];
 $idEstanteria = $_REQUEST['estanteriasDisponibles'];
 $numLeja = $_REQUEST['listaLejas'];
 
-$caja = new Caja($codigo, $altura, $anchura, $profundidad, $material, $color, $contenido);
+$cajaObj = new Caja($codigo, $altura, $anchura, $profundidad, $material, $color, $contenido);
 $ocupacion = new Ocupacion($idEstanteria, $numLeja);
 
 //transacciones en el controlador tambien se puede controlar en la capa DAO
 $conn->autocommit(false);
 
 try{
-    $respuestaInsert = DAOOperaciones::insertaCaja($caja, $ocupacion);
+    $respuestaInsert = DAOOperaciones::insertaCaja($cajaObj, $ocupacion);
     $conn->commit();
     $conn->autocommit(true);
     $conn->close();

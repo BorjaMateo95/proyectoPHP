@@ -73,7 +73,10 @@ and open the template in the editor.
                         <a href="Controladores/ControladorInventario.php">Inventario</a>
                     </li>
                     <li>
-                        <a href="Vistas/VistaVentaCaja.php">Vender Caja</a>
+                        <a href="Vistas/VistaVentaCaja.php?opcion=Venta">Vender Caja</a>
+                    </li>
+                    <li>
+                        <a href="Vistas/VistaVentaCaja.php?opcion=Devolucion">Devolver Caja</a>
                     </li>
                     <li>
                         <a href="#">Contacto</a>
