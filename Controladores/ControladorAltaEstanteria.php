@@ -8,7 +8,7 @@ $numLejas = $_REQUEST['nLejas'];
 $pasillo = $_REQUEST['pasillo'];
 $numero = $_REQUEST['numero'];
 
-$estanteria = new Estanteria($codigo, $numLejas, $pasillo, $numero);
+$estanteria = new Estanteria($codigo, $numLejas, 0, $pasillo, $numero);
 
 $respuestaInsert = DAOOperaciones::insertaEstanteria($estanteria);
 header('Location: ../Vistas/VistaMensaje.php?filas=' . $respuestaInsert . '&id=1');

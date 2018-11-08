@@ -76,7 +76,7 @@ and open the template in the editor.
                         <a href="Vistas/VistaVentaCaja.php?opcion=Venta">Vender Caja</a>
                     </li>
                     <li>
-                        <a href="Vistas/VistaVentaCaja.php?opcion=Devolucion">Devolver Caja</a>
+                        <a href="Vistas/VistaDevolucionCaja.php">Devolver Caja</a>
                     </li>
                     <li>
                         <a href="#">Contacto</a>

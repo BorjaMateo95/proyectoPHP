@@ -8,33 +8,28 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Caja</title>
-        
-        <script type="text/javascript" src="JS/JSDescripcionCaja.js"></script>
-                
+                        
     </head>
     <body>
     <center>
         
         <?php
         // put your code here
-                $opcion = $_REQUEST['opcion'];
+                
         ?>
         
-        <h3><?php echo $opcion?> de Caja</h3>
+        <h3>Devolucion de Caja</h3>
 
         <div id="contenedor">
-            <form name="formularioVentaCaja" action="../Controladores/ControladorVentaCaja.php?opcion="<?php $opcion ?>>
+            <form name="formularioVentaCaja" action="../Controladores/ControladorDevolucionCaja.php">
 
                 <label>Codigo</label>
                 <input type="text" id="codigo" name="codigo" placeholder="Codigo de la caja" 
-                       required="true" onchange="buscaCaja(this.value, <?php $opcion ?>)">
-                
-                <label id="descripcionCaja">
-                    
-                </label>
+                       required="true">
+
                 <br>
                 
-                <input type="submit" value="<?php echo $opcion?> Caja">
+                <input type="submit" value="Devolucion Caja">
                 
                 </input>
 
@@ -45,3 +40,4 @@ and open the template in the editor.
 
     </body>
 </html>
+

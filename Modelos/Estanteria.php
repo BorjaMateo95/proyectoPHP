@@ -14,9 +14,10 @@ class Estanteria {
     private $pasillo;
     private $numero;
     
-    function __construct($codigo, $numlejas, $pasillo, $numero) {
+    function __construct($codigo, $numlejas, $ocupadas, $pasillo, $numero) {
         $this->codigo = $codigo;
         $this->numlejas = $numlejas;
+        $this->ocupadas = $ocupadas;
         $this->pasillo = $pasillo;
         $this->numero = $numero;
     }
@@ -25,8 +26,6 @@ class Estanteria {
         $this->id = $id;
     }
 
-         
-    
     function getId() {
         return $this->id;
     }

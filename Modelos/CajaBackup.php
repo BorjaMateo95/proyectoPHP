@@ -4,14 +4,14 @@ class CajaBackup extends Caja {
     
     private $fechaVenta;
     private $leja;
-    private $codigoEstanteria;
+    private $idEstanteria;
     
     function __construct($codigo, $altura, $anchura, $profundidad, $material, $color, $contenido, $fechaVenta,
-            $leja, $codigoEstanteria) {
+            $leja, $idEstanteria) {
         parent::__construct($codigo, $altura, $anchura, $profundidad, $material, $color, $contenido);
         $this->fechaVenta = $fechaVenta;
         $this->leja = $leja;
-        $this->codigoEstanteria = $codigoEstanteria;
+        $this->idEstanteria = $idEstanteria;
     }
     
     function getFechaVenta() {
@@ -22,10 +22,16 @@ class CajaBackup extends Caja {
         return $this->leja;
     }
 
-    function getCodigoEstanteria() {
-        return $this->codigoEstanteria;
+
+    function getIdEstanteria() {
+        return $this->idEstanteria;
     }
 
+    function setIdEstanteria($idEstanteria) {
+        $this->idEstanteria = $idEstanteria;
+    }
+
+    
     function setFechaVenta($fechaVenta) {
         $this->fechaVenta = $fechaVenta;
     }
@@ -34,9 +40,7 @@ class CajaBackup extends Caja {
         $this->leja = $leja;
     }
 
-    function setCodigoEstanteria($codigoEstanteria) {
-        $this->codigoEstanteria = $codigoEstanteria;
-    }
+  
 
 
     

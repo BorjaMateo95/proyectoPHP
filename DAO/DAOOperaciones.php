@@ -25,7 +25,8 @@ class DAOOperaciones {
     public function insertaEstanteria($estanteria) {
         $orden = "INSERT INTO estanterias VALUES (null, '" . 
                 $estanteria->getCodigo() . "', " . $estanteria->getNumLejas()
-                . ", null ,'" . $estanteria->getPasillo() . "', " . $estanteria->getNumero() . ");";
+                . "," . $estanteria->getOcupadas() . ",'" . $estanteria->getPasillo() . 
+                "', " . $estanteria->getNumero() . ");";
             
             global $conn;
             $resultado = $conn -> query($orden);
@@ -89,8 +90,6 @@ class DAOOperaciones {
         }      
 
     }
-    
-    
     
     /**
      * Metodo que devuelve las estanterias que tienen
@@ -308,10 +307,51 @@ class DAOOperaciones {
     }
     
     
-    public function devolucionCaja($codigo) {
+    public function devolucionCaja($cajaBacup) {
         global $conn;
         
-        return "BIIIIEEEN DEVOLUCION CAJAAAA";
+        include '../Modelos/TriggerDevolucion.php';
+        
+        $sqlDeleteCajaBack = "DELETE FROM cajas_backup WHERE codCaja ='" . $cajaBacup->getCodigo() . "';";
+        $resultadoDelete = $conn->query($sqlDeleteCajaBack);
+        
+        if(!$resultadoDelete) {
+            throw new MiException(1, "ERROR en el delete cajasbackup");
+        }
+        
+        if(!$resultadoBorraTrigger){
+            throw new MiException(1, "ERROR al borrar trigger"); 
+        }
+        
+        if(!$resultadoTrigger) {
+            echo $triggerDevolucionCaja;
+            throw new MiException(1, "ERROR en el trigger");
+        }
+                
+        return "Caja devuelta correctamente!";
+    }
+    
+    public function dameCajaDevolucion($codigo) {
+        global $conn;
+        
+        $sqlCaja = "SELECT * FROM cajas_backup WHERE codCaja = '$codigo'";
+        
+            $resultadosqlCaja = $conn->query($sqlCaja);
+        
+            if($resultadosqlCaja->num_rows > 0) {
+            
+                $fila = $resultadosqlCaja->fetch_array();
+            
+                $caja = new CajaBackup($fila['codCaja'], $fila['altura'], 
+                                    $fila['anchura'], $fila['profundidad'], $fila['material'],
+                                    $fila['color'], $fila['contenido'], $fila['fechaVenta'],
+                                    $fila['leja'], $fila['codigoEstanteria']);
+            
+                return $caja;
+         
+            }else{
+                throw new MiException(1, "Esta caja_backup no existe"); 
+            }
         
     }
     
