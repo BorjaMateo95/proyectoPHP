@@ -18,18 +18,29 @@ and open the template in the editor.
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-
-
     </head>
     <body>
+        
+        <?php
+        // put your code here
+            session_start();
+            //$valorLogin = $_SESSION['login'];
+            $log = $_GET['log'];
+            //$log = 1;
+            if($log == null) {
+                header('Location:./Vistas/VistaLogin.php');
+                $login = true;
+            }else{
+                $login = true;
+            }
+        ?>
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             
             <div>
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Menu</a>
             </div>
-
-
+            
             <div class="container">
                 <a class="navbar-brand" href="./"><b>Almacen Borja</b></a>
                 <button class="navbar-toggler" type="button"  aria-label="Toggle navigation">
@@ -41,20 +52,18 @@ and open the template in the editor.
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
-
-                    <a class="btn btn-outline-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="#">Inicia Sesion</a>
-                    <a class="btn btn-outline-info d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="#">Registrate</a>
-
+                        <a class="btn btn-outline-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="">Iniciar Sesion</a>
+              
                 </div>
 
             </div>
 
         </nav>
-
-        <?php
-        // put your code here
-        ?>
         
+      
+        <div class="container">
+            <h1>Bienvenido a Almacen Borja</h1>
+        </div>
         <div id="wrapper">
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
@@ -79,18 +88,23 @@ and open the template in the editor.
                         <a href="Vistas/VistaDevolucionCaja.php">Devolver Caja</a>
                     </li>
                     <li>
-                        <a href="#">Contacto</a>
+                        <a href="Controladores/ControladorListadoCajas.php">Listado Cajas</a>
                     </li>
+                    
+                    <li>
+                        <a href="Controladores/ControladorListadoEstanterias.php">Listado Estanterias</a>
+                    </li>
+                    
                 </ul>
             </div>
         </div>
 
-        <script>
+   <script>
        $("#menu-toggle").click(function(e) {
            e.preventDefault();
            $("#wrapper").toggleClass("toggled");
        });
         </script>
-
+        
     </body>
 </html>

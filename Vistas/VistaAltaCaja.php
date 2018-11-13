@@ -38,7 +38,7 @@ and open the template in the editor.
                 <input type="text" id="material" name="material" placeholder="Material" required="true"><br>
                 
                 <label>Color</label>
-                <input type="text" id="color" name="color" placeholder="Color" required="true"><br>
+                <input type="color" id="color" name="color" placeholder="Color" required="true"><br>
                 
                 <label>Contenido</label>
                 <input type="text" id="contenido" name="contenido" placeholder="Contenido" required="true"><br>

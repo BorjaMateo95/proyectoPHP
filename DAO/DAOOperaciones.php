@@ -25,7 +25,7 @@ class DAOOperaciones {
     public function insertaEstanteria($estanteria) {
         $orden = "INSERT INTO estanterias VALUES (null, '" . 
                 $estanteria->getCodigo() . "', " . $estanteria->getNumLejas()
-                . "," . $estanteria->getOcupadas() . ",'" . $estanteria->getPasillo() . 
+                . "," . 0 . ",'" . $estanteria->getPasillo() . 
                 "', " . $estanteria->getNumero() . ");";
             
             global $conn;
@@ -107,7 +107,8 @@ class DAOOperaciones {
         if ($resultado) {
             $fila = $resultado->fetch_array();
             while ($fila) {
-                $estanteria = new Estanteria($fila['codigo'], $fila['numlejas'], $fila['pasillo'], $fila['numero']);
+                $estanteria = new Estanteria($fila['codigo'], $fila['numlejas'],
+                        $fila['pasillo'], $fila['numero']);
                 $estanteria->setId($fila['id']);
                 $estanteria->setOcupadas($fila['ocupadas']);
                 array_push($arrayEstanterias, $estanteria);
@@ -236,12 +237,66 @@ class DAOOperaciones {
             
         }else{
             //quitar return y sino tenemos nada sacamos un trhow new Exception.
-            return "No hay estanterias para listar";
+            throw new MiException(1, "No hay estanterias para listar"); 
         }
         
         $conn->close();
-        return $array;
                 
+    }
+    
+    
+    public function listadoCajas() {
+        global $conn;
+        
+        $sqlCajas = "SELECT * FROM cajas ORDER BY codigo";
+        $resulCajas = $conn->query($sqlCajas);
+        
+        $arrayCajas = array();
+        
+        if($resulCajas) {
+            for($e = 0; $e < $resulCajas->num_rows; $e++) {
+                $fila = $resulCajas->fetch_array();
+                
+                $caja = new Caja($fila['codigo'], $fila['altura'], 
+                                    $fila['anchura'], $fila['profundidad'], $fila['material'],
+                                    $fila['color'], $fila['contenido']);
+                            
+                array_push($arrayCajas, $caja);
+            }
+            
+            return $arrayCajas;
+        }else{
+            throw new MiException(1, "No hay cajas para listar"); 
+        }
+        
+        
+    }
+    
+    public function listadoEstanterias() {
+        global $conn;
+        
+        $sqlEstanterias = "SELECT * FROM estanterias ORDER BY codigo";
+        $resulEstanterias = $conn->query($sqlEstanterias);
+        
+        $arrayEstanterias = array();
+        
+        if($resulEstanterias) {
+            for($e = 0; $e < $resulEstanterias->num_rows; $e++) {
+                $fila = $resulEstanterias->fetch_array();
+                
+                $estanteria = new Estanteria($fila['codigo'], $fila['numlejas'], 
+                                    $fila['pasillo'], $fila['numero']);
+                $estanteria->setOcupadas($fila['ocupadas']);
+                            
+                array_push($arrayEstanterias, $estanteria);
+            }
+            
+            return $arrayEstanterias;
+            
+        }else{
+            throw new MiException(1, "No hay estanterias para listar"); 
+        }
+        
     }
     
     
@@ -352,6 +407,22 @@ class DAOOperaciones {
             }else{
                 throw new MiException(1, "Esta caja_backup no existe"); 
             }
+        
+    }
+    
+    
+    public function loginUsuario($email, $password) {
+        global $conn;
+        $sqlUsuario = "SELECT * FROM usuario WHERE email = '$email' AND contrasena = '$password'";
+        
+        $resultadoUsuario = $conn->query($sqlUsuario);
+        
+        if($resultadoUsuario->num_rows > 0) {
+            return true;            
+        }else{
+            throw new MiException(1, "Email o contraseña incorrectos"); 
+        }
+        
         
     }
     

@@ -8,6 +8,19 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Inventario</title>
+        
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        
+        <style>
+		.content {
+			margin-top: 80px;
+		}
+                
+	</style>
     </head>
     <body>
         <?php
@@ -23,36 +36,78 @@ and open the template in the editor.
             $inventario = $_SESSION['inventario'];
            
             ?>
+        
+        <center>
+        
         <h2>Inventario con Fecha: <?php echo $inventario->getFecha();?></h2>
         
-        <?php
+        <div class="table-responsive" style="width:80%;">
+            <table class="table table-striped table-hover">
+                                
+               <?php
 
                 foreach($inventario->getArrayEstanterias() as $objeto){
-                    //var_dump($objeto);
- 
-                    echo "<b>Codigo: ".$objeto->getCodigo() . " " . "</b>";
-                    echo "<b>Numero de lejas: ".$objeto->getNumlejas() . " " . "</b>";
-                    echo "<b>Lejas Ocupadas: ".$objeto->getOcupadas() . " " . "</b>";
-                    echo "<b>Pasillo: ".$objeto->getPasillo() . " " . "</b>";
-                    echo "<b>Numero: ".$objeto->getNumero() . " " . "</b>";
+                    ?>
+                <tr style="background-color:#343a40">
+                    <th style="color:#F7F9F9"><b>Código</b></th>
+                    <th style="color:#F7F9F9"><b>Lejas</b></th>
+                    <th style="color:#F7F9F9"><b>Lejas Ocupadas</b></th>
+                    <th style="color:#F7F9F9"><b>Pasillo</b></th>
+                    <th style="color:#F7F9F9"><b>Numero</b></th>
+		</tr>
+                <?php
+                        echo '
+                            <tr>
+                                <td>' . $objeto->getCodigo() . '</td>
+                                <td>' . $objeto->getNumlejas() . '</td>
+                                <td>' . $objeto->getOcupadas() . '</td>
+                                <td>' . $objeto->getPasillo() . '</td>
+                                <td>' . $objeto->getNumero() . '</td>                                                
+                            </tr>';
                     
                     echo "<br>";
                     
                     if ($objeto->getArrayCajasConLeja() != null) {
+                        ?>
+                            <tr style="background-color:#566573">
+                                <th style="color:#F7F9F9"><b>Código</b></th>
+                                <th style="color:#F7F9F9"><b>Altura</b></th>
+                                <th style="color:#F7F9F9"><b>Anchura</b></th>
+                                <th style="color:#F7F9F9"><b>Profundidad</b></th>
+                                <th style="color:#F7F9F9"><b>Material</b></th>
+                                <th style="color:#F7F9F9"><b>Color</b></th>
+                                <th style="color:#F7F9F9"><b>Contenido</b></th>
+                                <th style="color:#F7F9F9"><b>Fecha Alta</b></th>
+                                <th style="color:#F7F9F9"><b>Leja</b></th>
+                            </tr>
+                            
+                         <?php
+                         
                         foreach ($objeto->getArrayCajasConLeja() as $caja) {
-                            echo "Codigo caja: " . $caja->getCodigo() . " ";
-                            echo "altura caja: " . $caja->getAltura() . " ";
-                            echo "anchura caja: " . $caja->getAnchura() . " ";
-                            echo "profundida caja: " . $caja->getProfundidad() . " ";
-                            echo "material caja: " . $caja->getMaterial() . " ";
-                            echo "Color caja: " . $caja->getColor() . " ";
-                            echo "Contenido caja: " . $caja->getContenido() . " ";
-                            echo "Leja caja: " . $caja->getLeja() . " ";
-                            echo "<br>";
+                         echo '
+                            <tr>
+                                <td>' . $caja->getCodigo() . '</td>
+                                <td>' . $caja->getAltura() . '</td>
+                                <td>' . $caja->getAnchura() . '</td>
+                                <td>' . $caja->getProfundidad() . '</td>
+                                <td>' . $caja->getMaterial() . '</td>
+                                <td>' . $caja->getColor() . '</td>
+                                <td>' . $caja->getContenido() . '</td>
+                                <td>' . " " . '</td>
+                                <td>' . $caja->getLeja() . '</td>
+                                                
+                            </tr>';
                         }
                     }
                 }
             
         ?>
+
+
+            </table>
+        </div>
+        </center>
+        
+       
     </body>
 </html>

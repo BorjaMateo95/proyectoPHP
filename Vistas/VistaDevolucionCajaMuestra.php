@@ -49,7 +49,7 @@ and open the template in the editor.
                 <input type="text" id="material" name="material" value="<?php echo $cajaBackup->getMaterial()?>" readonly="true" required="true"><br>
                 
                 <label>Color</label>
-                <input type="text" id="color" name="color" value="<?php echo $cajaBackup->getColor()?>" readonly="true" required="true"><br>
+                <input type="color" id="color" name="color" value="<?php echo $cajaBackup->getColor()?>" readonly="true" required="true"><br>
                 
                 <label>Contenido</label>
                 <input type="text" id="contenido" name="contenido" value="<?php echo $cajaBackup->getContenido()?>" readonly="true" required="true"><br>
