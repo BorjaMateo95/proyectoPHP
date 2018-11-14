@@ -1,11 +1,5 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 include 'ConexionBD.php';
 include_once '../Modelos/Estanteria.php';
 include_once '../Modelos/Caja.php';
@@ -148,7 +142,7 @@ class DAOOperaciones {
         $numeroFilasDevuelto = $resulSqlOcupacion->num_rows;
         
         if ($numeroFilasDevuelto > 0) {//si tenemos alguna ocupacion de esa estanteria
-            $filaOcupacion = $resulSqlOcupacion->fetch_array();//la fila del select de ocupacion
+            $filaOcupacion = $resulSqlOcupacion->fetch_array();
             
             $arrayLejasOcupadas = array();//array con las lejas ocupadas
             while ($filaOcupacion) {
@@ -185,6 +179,13 @@ class DAOOperaciones {
 
     }
     
+    
+     /**
+     * dameInventario devuelve un objeto inventario.
+     * devuelve MiException
+     * @global type $conn
+     * @return object
+     */
     
     public function dameInventario() {
         global $conn;
@@ -236,7 +237,6 @@ class DAOOperaciones {
             return $inventario;
             
         }else{
-            //quitar return y sino tenemos nada sacamos un trhow new Exception.
             throw new MiException(1, "No hay estanterias para listar"); 
         }
         
@@ -244,6 +244,13 @@ class DAOOperaciones {
                 
     }
     
+    
+    /**
+     * listadoCajas devuelve todas las cajas que tenemos en la BD ordenadas por codigo
+     * @global type $conn
+     * @return array
+     * @throws MiException
+     */
     
     public function listadoCajas() {
         global $conn;
@@ -271,6 +278,13 @@ class DAOOperaciones {
         
         
     }
+    
+     /**
+     * listadoEstanterias devuelve todas las estanterias que tenemos en la BD ordenadas por codigo
+     * @global type $conn
+     * @return array
+     * @throws MiException
+     */
     
     public function listadoEstanterias() {
         global $conn;
@@ -346,6 +360,15 @@ class DAOOperaciones {
         
     }
     
+    
+    /**
+     * salidaCaja borra la Caja $codigo, se ejecuta un disparador que incluye la caja borrada
+     * en CajaBackup 
+     * @global type $conn
+     * @param type $codigo
+     * @return string
+     * @throws MiException
+     */
     public function salidaCaja($codigo) {
         global $conn;
         $sqlDelete = "DELETE FROM cajas WHERE codigo='" . $codigo . "';";
@@ -361,7 +384,13 @@ class DAOOperaciones {
         
     }
     
-    
+    /**
+     * devolucionCaja elimina una cajaBackup y la inserta de nuevo en Caja.
+     * @global type $conn
+     * @param type $cajaBacup
+     * @return string
+     * @throws MiException
+     */
     public function devolucionCaja($cajaBacup) {
         global $conn;
         
@@ -386,6 +415,15 @@ class DAOOperaciones {
         return "Caja devuelta correctamente!";
     }
     
+
+
+    /**
+     * dameCajaDevolucion devuelve una cajaBackup.
+     * @global type $conn
+     * @param type $codigo
+     * @return \CajaBackup
+     * @throws MiException
+     */
     public function dameCajaDevolucion($codigo) {
         global $conn;
         
@@ -411,6 +449,14 @@ class DAOOperaciones {
     }
     
     
+    /**
+     * Control de login usuario.
+     * @global type $conn
+     * @param type $email
+     * @param type $password
+     * @return boolean
+     * @throws MiException
+     */
     public function loginUsuario($email, $password) {
         global $conn;
         $sqlUsuario = "SELECT * FROM usuario WHERE email = '$email' AND contrasena = '$password'";

@@ -21,7 +21,7 @@ $numLeja = $_REQUEST['listaLejas'];
 $cajaObj = new Caja($codigo, $altura, $anchura, $profundidad, $material, $color, $contenido);
 $ocupacion = new Ocupacion($idEstanteria, $numLeja);
 
-//transacciones en el controlador tambien se puede controlar en la capa DAO
+//transacciones
 $conn->autocommit(false);
 
 try{
