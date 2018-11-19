@@ -16,7 +16,6 @@ and open the template in the editor.
     <center>
         
         <?php
-        // put your code here
                 $opcion = $_REQUEST['opcion'];
         ?>
         

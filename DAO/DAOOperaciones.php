@@ -17,15 +17,21 @@ class DAOOperaciones {
      * @return resultado de la query
      */    
     public function insertaEstanteria($estanteria) {
-        $orden = "INSERT INTO estanterias VALUES (null, '" . 
-                $estanteria->getCodigo() . "', " . $estanteria->getNumLejas()
-                . "," . 0 . ",'" . $estanteria->getPasillo() . 
-                "', " . $estanteria->getNumero() . ");";
-            
-            global $conn;
-            $resultado = $conn -> query($orden);
-            
-            return $resultado;
+        global $conn;
+        
+        $ins = "INSERT INTO estanterias VALUES (null, ?, ?, ?, ?, ?)";
+        $pre = $conn->prepare($ins);
+        
+        $codigo = $estanteria->getCodigo();
+        $numLejas = $estanteria->getNumLejas();
+        $ocupadas = 0;
+        $pasillo = $estanteria->getPasillo();
+        $numero = $estanteria->getNumero();
+        
+        $pre->bind_param("siisi", $codigo, $numLejas,$ocupadas, $pasillo, $numero);
+        $resultado = $pre->execute();
+
+        return $resultado;
     }
     
      /**
@@ -36,24 +42,39 @@ class DAOOperaciones {
     public function insertaCaja($caja, $ocupacion) {        
         global $conn;
         //cajas
-        $orden = "INSERT INTO cajas VALUES (null, '" . 
-                  $caja->getCodigo() . "', " . $caja->getAltura()
-                . ", " . $caja->getAnchura() . ", " . $caja->getProfundidad()
-                . ", '" . $caja->getMaterial() . "', '" . $caja->getColor() .
-                "', '" . $caja->getContenido() . "')";
+        $codigo = $caja->getCodigo();
+        $altura = $caja->getAltura();
+        $anchura = $caja->getAnchura();
+        $profundiad = $caja->getProfundidad();
+        $material = $caja->getMaterial();
+        $color = $caja->getColor();
+        $contenido = $caja->getContenido();
         
-        $resultado = $conn->query($orden);
+        $orden = "INSERT INTO cajas VALUES (null, ?, ?, ?, ?, ?, ?, ?)";
+        $pre = $conn->prepare($orden);
         
+        $pre->bind_param("siiisss", $codigo, $altura, $anchura, $profundiad, $material,
+                $color, $contenido);
+        $resultado = $pre->execute();
+     
         if($conn->affected_rows < 1) {//si se cumple no ha insertado caja
             throw new MiException(1, "Error al insertar la caja");       
         }
         
         //ocupacion
         $ocupacion->setIdCaja($conn->insert_id);
-        $ordenInsertOcupacion = "INSERT INTO ocupacion VALUES (null, " . $ocupacion->getIdCaja() .
-                ", " . $ocupacion->getIdEstanteria() . ", " . $ocupacion->getNumeroLeja() . ")";
         
-        $resultado = $conn->query($ordenInsertOcupacion);
+        $idCaja = $ocupacion->getIdCaja();
+        $idEstanteria = $ocupacion->getIdEstanteria();
+        $numeroLeja = $ocupacion->getNumeroLeja();
+        
+        $ordenInsertOcupacion = "INSERT INTO ocupacion VALUES (null, ?, ?, ?)";
+        $preDos = $conn->prepare($ordenInsertOcupacion);
+        
+        $preDos->bind_param("iii", $idCaja, $idEstanteria, $numeroLeja);
+        
+        $resultado = $preDos->execute();
+        
         
         if($conn->affected_rows < 1) {
             throw new MiException(1, "Error al insertar ocupación");
@@ -196,6 +217,7 @@ class DAOOperaciones {
         $arrayEstanterias = array();
         
         if ($resulEstanterias) {
+            if($resulEstanterias->num_rows > 0){
             for($e = 0; $e < $resulEstanterias->num_rows; $e++) {
                 $fila = $resulEstanterias->fetch_array();
                 $estanteriaConCaja = new EstanteriaConCajas($fila['codigo'], $fila['numlejas'],
@@ -222,7 +244,6 @@ class DAOOperaciones {
                             
                             array_push($arrayCajas, $cajaConLeja);
                            
- 
                         }
                         
                         $estanteriaConCaja->setArrayCajasConLeja($arrayCajas);
@@ -235,6 +256,10 @@ class DAOOperaciones {
             $inventario = new Inventario($arrayEstanterias, date("F j, Y, g:i a"));
             
             return $inventario;
+            
+            }else{
+                throw new MiException(1, "No hay estanterias para listar"); 
+            }
             
         }else{
             throw new MiException(1, "No hay estanterias para listar"); 
@@ -261,6 +286,7 @@ class DAOOperaciones {
         $arrayCajas = array();
         
         if($resulCajas) {
+            if($resulCajas->num_rows > 0){
             for($e = 0; $e < $resulCajas->num_rows; $e++) {
                 $fila = $resulCajas->fetch_array();
                 
@@ -272,6 +298,10 @@ class DAOOperaciones {
             }
             
             return $arrayCajas;
+            
+            }else{
+                throw new MiException(1, "No hay cajas para listar"); 
+            }
         }else{
             throw new MiException(1, "No hay cajas para listar"); 
         }
@@ -295,6 +325,8 @@ class DAOOperaciones {
         $arrayEstanterias = array();
         
         if($resulEstanterias) {
+            if($resulEstanterias->num_rows > 0){
+               
             for($e = 0; $e < $resulEstanterias->num_rows; $e++) {
                 $fila = $resulEstanterias->fetch_array();
                 
@@ -304,8 +336,12 @@ class DAOOperaciones {
                             
                 array_push($arrayEstanterias, $estanteria);
             }
-            
+                        
             return $arrayEstanterias;
+            
+            }else{
+                throw new MiException(1, "No hay estanterias para listar"); 
+            }
             
         }else{
             throw new MiException(1, "No hay estanterias para listar"); 
@@ -408,7 +444,6 @@ class DAOOperaciones {
         }
         
         if(!$resultadoTrigger) {
-            echo $triggerDevolucionCaja;
             throw new MiException(1, "ERROR en el trigger");
         }
                 

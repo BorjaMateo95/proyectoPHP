@@ -1,16 +1,16 @@
 <?php
 
-include '../DAO/DAOOperaciones.php';
-include '../Modelos/Estanteria.php';
+include_once '../DAO/DAOOperaciones.php';
+include_once '../Modelos/Estanteria.php';
 
 $codigo = $_REQUEST['codigo'];
 $numLejas = $_REQUEST['nLejas'];
 $pasillo = $_REQUEST['pasillo'];
 $numero = $_REQUEST['numero'];
 
-$estanteria = new Estanteria($codigo, $numLejas, 0, $pasillo, $numero);
+$estanteriaObj = new Estanteria($codigo, $numLejas, $pasillo, $numero);
 
-$respuestaInsert = DAOOperaciones::insertaEstanteria($estanteria);
+$respuestaInsert = DAOOperaciones::insertaEstanteria($estanteriaObj);
 header('Location: ../Vistas/VistaMensaje.php?filas=' . $respuestaInsert . '&id=1');
 
 ?>
