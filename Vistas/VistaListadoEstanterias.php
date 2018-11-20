@@ -33,6 +33,10 @@ and open the template in the editor.
         <h2>Listado de Estanterias</h2>
         </br>
         
+        <a href="menu.php">
+            <button type="button" class="btn btn-primary">Volver al inicio</button>
+        </a>
+        
         <div class="table-responsive" style="width:80%;">
             <table class="table table-striped table-hover">
                 <tr style="background-color:#343a40">

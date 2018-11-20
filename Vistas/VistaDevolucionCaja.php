@@ -12,12 +12,7 @@ and open the template in the editor.
     </head>
     <body>
     <center>
-        
-        <?php
-        // put your code here
                 
-        ?>
-        
         <h3>Devolucion de Caja</h3>
 
         <div id="contenedor">

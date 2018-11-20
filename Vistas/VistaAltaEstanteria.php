@@ -13,32 +13,44 @@ and open the template in the editor.
 
     </head>
     <body>
-        <center>
-        <h3>Alta de Estanteria</h3>
+        <div id="contact-form">
+            <div>
+                <h2>Alta de Estanteria</h2>
+            </div>
 
-        <div id="contenedor">
             <form name="formularioAltaEstanteria" action="../Controladores/ControladorAltaEstanteria.php">
-                
-                <label>Codigo</label>
-                <input type="text" id="codigo" name="codigo" placeholder="Codigo" required="true"><br>
+                <div>
+                    <label for="name">
+                        <span class="required">Codigo</span> 
+                        <input type="text" id="codigo" name="codigo" placeholder="Codigo" required="true" autofocus="autofocus" />
+                    </label> 
+                </div>
+                <div>
+                    <label for="nLejas">
+                        <span class="required">Numero de Lejas</span>
+                        <input type="number" id="nLejas" name="nLejas" placeholder="Numero de Lejas" required="true"/>
+                    </label>  
+                </div>
 
-                <label>Numero de Lejas</label>
-                <input type="text" id="nLejas" name="nLejas" placeholder="Numero de Lejas" required="true"><br>
+                <div>
+                    <label for="pasillo">
+                        <span class="required">Pasillo</span>
+                        <input type="text" id="pasillo" name="pasillo" placeholder="Pasillo" required="true" />
+                    </label>  
+                </div>
+
+                <div>
+                    <label for="numero">
+                        <span class="required">Numero</span>
+                        <input type="number" id="numero" name="numero" placeholder="Numero" required="true"/>
+                    </label>  
+                </div>
                 
-                <label>Pasillo</label>
-                <input type="text" id="pasillo" name="pasillo" placeholder="Pasillo" required="true"><br>
-                
-                <label>Numero</label>
-                <input type="number" id="numero" name="numero" placeholder="Numero" required="true"><br>
-                
-                <input type="submit" value="Guardar" id="guardar">
-                
+                <div>		           
+                    <button name="submit" type="submit" id="submit" >Guardar Estanteria</button> 
+                </div>
             </form>
         </div>
-        
-        </center>
-        <?php
-        // put your code here
-        ?>
+
     </body>
 </html>

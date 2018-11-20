@@ -30,7 +30,9 @@ and open the template in the editor.
         
           <br>
         
-        <a href="menu.php">Volver al Inicio</a>
+        <a href="menu.php">
+            <button type="button" class="btn btn-primary">Volver al inicio</button>
+        </a>
         
     </body>
 </html>

@@ -34,6 +34,10 @@ and open the template in the editor.
         <h2>Listado de Cajas</h2>
         </br>
         
+        <a href="menu.php">
+            <button type="button" class="btn btn-primary">Volver al inicio</button>
+        </a>
+                
         <div class="table-responsive" style="width:80%;">
             <table class="table table-striped table-hover">
                 <tr style="background-color:#343a40">
@@ -56,8 +60,9 @@ and open the template in the editor.
                                 <td>' . $objeto->getAnchura() . '</td>
                                 <td>' . $objeto->getProfundidad() . '</td>
                                 <td>' . $objeto->getMaterial() . '</td>
-                                <td>' . $objeto->getColor() . '</td>
+                                <td bgcolor=' . $objeto->getColor() . '></td>
                                 <td>' . $objeto->getContenido() . '</td>
+                                <td>' . date("d/m/Y", strtotime($objeto->getFechaAlta()))  . '</td>
                                                 
                             </tr>';
                     }

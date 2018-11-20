@@ -14,26 +14,21 @@ and open the template in the editor.
     </head>
     <body>
     <center>
-        
-        <?php
-                $opcion = $_REQUEST['opcion'];
-        ?>
-        
-        <h3><?php echo $opcion?> de Caja</h3>
+        <h3>Venta de Caja</h3>
 
         <div id="contenedor">
-            <form name="formularioVentaCaja" action="../Controladores/ControladorVentaCaja.php?opcion="<?php $opcion ?>>
+            <form name="formularioVentaCaja" action="../Controladores/ControladorVentaCaja.php">
 
                 <label>Codigo</label>
                 <input type="text" id="codigo" name="codigo" placeholder="Codigo de la caja" 
-                       required="true" onchange="buscaCaja(this.value, <?php $opcion ?>)">
+                       required="true" onchange="buscaCaja(this.value)">
                 
                 <label id="descripcionCaja">
                     
                 </label>
                 <br>
                 
-                <input type="submit" value="<?php echo $opcion?> Caja">
+                <input type="submit" value="Vender Caja">
                 
                 </input>
 

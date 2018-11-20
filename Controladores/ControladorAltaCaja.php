@@ -13,12 +13,13 @@ $profundidad = $_REQUEST['profundidad'];
 $material = $_REQUEST['material'];
 $color = $_REQUEST['color'];
 $contenido = $_REQUEST['contenido'];
+$fechaAlta = "";
 
 //ocupacion
 $idEstanteria = $_REQUEST['estanteriasDisponibles'];
 $numLeja = $_REQUEST['listaLejas'];
 
-$cajaObj = new Caja($codigo, $altura, $anchura, $profundidad, $material, $color, $contenido);
+$cajaObj = new Caja($codigo, $altura, $anchura, $profundidad, $material, $color, $contenido, $fechaAlta);
 $ocupacion = new Ocupacion($idEstanteria, $numLeja);
 
 //transacciones

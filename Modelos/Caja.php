@@ -14,8 +14,9 @@ class Caja {
     private $material;
     private $color;
     private $contenido;
+    private $fechaAlta;
     
-    function __construct($codigo, $altura, $anchura, $profundidad, $material, $color, $contenido) {
+    function __construct($codigo, $altura, $anchura, $profundidad, $material, $color, $contenido, $fechaAlta) {
         $this->codigo = $codigo;
         $this->altura = $altura;
         $this->anchura = $anchura;
@@ -23,6 +24,7 @@ class Caja {
         $this->material = $material;
         $this->color = $color;
         $this->contenido = $contenido;
+        $this->fechaAlta = $fechaAlta;
     }
     
     function getId() {
@@ -84,6 +86,16 @@ class Caja {
     function setContenido($contenido) {
         $this->contenido = $contenido;
     }
+    
+    function getFechaAlta() {
+        return $this->fechaAlta;
+    }
+
+    function setFechaAlta($fechaAlta) {
+        $this->fechaAlta = $fechaAlta;
+    }
+
+
  
 
 

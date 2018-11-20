@@ -6,9 +6,9 @@ class CajaBackup extends Caja {
     private $leja;
     private $idEstanteria;
     
-    function __construct($codigo, $altura, $anchura, $profundidad, $material, $color, $contenido, $fechaVenta,
+    function __construct($codigo, $altura, $anchura, $profundidad, $material, $color, $contenido, $fechaAlta, $fechaVenta,
             $leja, $idEstanteria) {
-        parent::__construct($codigo, $altura, $anchura, $profundidad, $material, $color, $contenido);
+        parent::__construct($codigo, $altura, $anchura, $profundidad, $material, $color, $contenido, $fechaAlta);
         $this->fechaVenta = $fechaVenta;
         $this->leja = $leja;
         $this->idEstanteria = $idEstanteria;

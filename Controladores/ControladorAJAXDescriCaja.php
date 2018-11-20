@@ -4,12 +4,11 @@ include '../DAO/DAOOperaciones.php';
 
 session_start();
 $codcaja = $_REQUEST['codcaja'];
-$opcion = $_REQUEST['opcion'];
 
 try {
-    $resultado = DAOOperaciones::dimeDescripcionUnaCaja($codcaja, $opcion);
+    $resultado = DAOOperaciones::dimeDescripcionUnaCaja($codcaja);
     $_SESSION['caja'] = $resultado;
-    header('Location: ../Vistas/VistaDescriCaja.php?opcion=' . $opcion);
+    header('Location: ../Vistas/VistaDescriCaja.php');
 } catch (MiException $ex) {
     header('Location: ../Vistas/VistaErrores.php?ex=' . $ex);
 }

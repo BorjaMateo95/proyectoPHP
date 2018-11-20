@@ -40,29 +40,33 @@ and open the template in the editor.
         <center>
         
         <h2>Inventario con Fecha: <?php echo $inventario->getFecha();?></h2>
+
+        <a href="menu.php">
+            <button type="button" class="btn btn-primary">Volver al inicio</button>
+        </a>
         
         <div class="table-responsive" style="width:80%;">
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover" style="text-align:center;">
                                 
                <?php
 
                 foreach($inventario->getArrayEstanterias() as $objeto){
                     ?>
                 <tr style="background-color:#343a40">
-                    <th style="color:#F7F9F9"><b>Código</b></th>
-                    <th style="color:#F7F9F9"><b>Lejas</b></th>
-                    <th style="color:#F7F9F9"><b>Lejas Ocupadas</b></th>
-                    <th style="color:#F7F9F9"><b>Pasillo</b></th>
-                    <th style="color:#F7F9F9"><b>Numero</b></th>
+                    <th colspan="2" style="color:#F7F9F9"><b>Código</b></th>
+                    <th colspan="2" style="color:#F7F9F9"><b>Lejas</b></th>
+                    <th colspan="2" style="color:#F7F9F9"><b>Lejas Ocupadas</b></th>
+                    <th colspan="2" style="color:#F7F9F9"><b>Pasillo</b></th>
+                    <th colspan="2" style="color:#F7F9F9"><b>Numero</b></th>
 		</tr>
                 <?php
                         echo '
                             <tr>
-                                <td>' . $objeto->getCodigo() . '</td>
-                                <td>' . $objeto->getNumlejas() . '</td>
-                                <td>' . $objeto->getOcupadas() . '</td>
-                                <td>' . $objeto->getPasillo() . '</td>
-                                <td>' . $objeto->getNumero() . '</td>                                                
+                                <td colspan="2">' . $objeto->getCodigo() . '</td>
+                                <td colspan="2">' . $objeto->getNumlejas() . '</td>
+                                <td colspan="2">' . $objeto->getOcupadas() . '</td>
+                                <td colspan="2">' . $objeto->getPasillo() . '</td>
+                                <td colspan="2">' . $objeto->getNumero() . '</td>                                                
                             </tr>';
                     
                     echo "<br>";
@@ -91,13 +95,13 @@ and open the template in the editor.
                                 <td>' . $caja->getAnchura() . '</td>
                                 <td>' . $caja->getProfundidad() . '</td>
                                 <td>' . $caja->getMaterial() . '</td>
-                                <td>' . $caja->getColor() . '</td>
+                                <td bgcolor=' . $caja->getColor() . '></td>
                                 <td>' . $caja->getContenido() . '</td>
-                                <td>' . " " . '</td>
+                                <td>' . date("d/m/Y", strtotime($caja->getFechaAlta())) . '</td>
                                 <td>' . $caja->getLeja() . '</td>
                                                 
                             </tr>';
-                        }
+                       }
                     }
                 }
             
@@ -105,6 +109,7 @@ and open the template in the editor.
 
 
             </table>
+            
         </div>
         </center>
         

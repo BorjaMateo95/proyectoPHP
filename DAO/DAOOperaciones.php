@@ -50,7 +50,8 @@ class DAOOperaciones {
         $color = $caja->getColor();
         $contenido = $caja->getContenido();
         
-        $orden = "INSERT INTO cajas VALUES (null, ?, ?, ?, ?, ?, ?, ?)";
+        $orden = "INSERT INTO cajas (codigo, altura, anchura, profundidad, material,
+                color, contenido) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $pre = $conn->prepare($orden);
         
         $pre->bind_param("siiisss", $codigo, $altura, $anchura, $profundiad, $material,
@@ -240,7 +241,8 @@ class DAOOperaciones {
                             $filaCaja = $resultadoCajas->fetch_array();
                             $cajaConLeja = new CajaConLeja($filaCaja['codigo'], $filaCaja['altura'], 
                                     $filaCaja['anchura'], $filaCaja['profundidad'], $filaCaja['material'],
-                                    $filaCaja['color'], $filaCaja['contenido'], $filasOcupacion['nLeja']);
+                                    $filaCaja['color'], $filaCaja['contenido'], $filaCaja['fechaAlta'],
+                                    $filasOcupacion['nLeja']);
                             
                             array_push($arrayCajas, $cajaConLeja);
                            
@@ -250,10 +252,8 @@ class DAOOperaciones {
                     }           
                 }  
             }
-            
-            $fecha = date("d/m/y");
-            
-            $inventario = new Inventario($arrayEstanterias, date("F j, Y, g:i a"));
+                        
+            $inventario = new Inventario($arrayEstanterias, date("d-m-Y, H:i"));
             
             return $inventario;
             
@@ -292,7 +292,7 @@ class DAOOperaciones {
                 
                 $caja = new Caja($fila['codigo'], $fila['altura'], 
                                     $fila['anchura'], $fila['profundidad'], $fila['material'],
-                                    $fila['color'], $fila['contenido']);
+                                    $fila['color'], $fila['contenido'], $fila['fechaAlta']);
                             
                 array_push($arrayCajas, $caja);
             }
@@ -350,28 +350,28 @@ class DAOOperaciones {
     }
     
     
-    public function dimeDescripcionUnaCaja($codcaja, $opcion) {
+    public function dimeDescripcionUnaCaja($codcaja) {
         global $conn;
-        
-        if($opcion == "Venta") {
-            $sqlCaja = "SELECT * FROM cajas WHERE codigo = '$codcaja'";
-        
-            $resultadosqlCaja = $conn->query($sqlCaja);
-        
-            if($resultadosqlCaja->num_rows > 0) {
-            
-                $fila = $resultadosqlCaja->fetch_array();
-            
-                $caja = new Caja($fila['codigo'], $fila['altura'], 
-                                    $fila['anchura'], $fila['profundidad'], $fila['material'],
-                                    $fila['color'], $fila['contenido']);
-            
-                return $caja;
-         
-            }else{
-                throw new MiException(1, "Esta caja no existe"); 
-            }
-        }else{
+
+        $sqlCaja = "SELECT * FROM cajas WHERE codigo = '$codcaja'";
+
+        $resultadosqlCaja = $conn->query($sqlCaja);
+
+        if ($resultadosqlCaja->num_rows > 0) {
+
+            $fila = $resultadosqlCaja->fetch_array();
+
+            $caja = new Caja($fila['codigo'], $fila['altura'], $fila['anchura'], 
+                    $fila['profundidad'], $fila['material'], $fila['color'], 
+                    $fila['contenido'], $fila['fechaAlta']);
+
+            return $caja;
+        } else {
+            throw new MiException(1, "Esta caja no existe");
+        }
+    }
+    
+    public function descripcionCajaBackup($codcaja) {
             $sqlCaja = "SELECT * FROM cajas_backup WHERE codCaja = '$codcaja'";
         
             $resultadosqlCaja = $conn->query($sqlCaja);
@@ -382,7 +382,7 @@ class DAOOperaciones {
             
                 $caja = new CajaBackup($fila['codCaja'], $fila['altura'], 
                                     $fila['anchura'], $fila['profundidad'], $fila['material'],
-                                    $fila['color'], $fila['contenido'], $fila['fechaVenta'],
+                                    $fila['color'], $fila['contenido'], $fila['fechaAlta'], $fila['fechaVenta'],
                                     $fila['leja'], $fila['codigoEstanteria']);
             
                 return $caja;
@@ -390,10 +390,6 @@ class DAOOperaciones {
             }else{
                 throw new MiException(1, "Esta cajaBackup no existe"); 
             }
-            
-        }
-
-        
     }
     
     
@@ -410,7 +406,7 @@ class DAOOperaciones {
         $sqlDelete = "DELETE FROM cajas WHERE codigo='" . $codigo . "';";
         $respuesta = $conn->query($sqlDelete);
                 
-        if ($respuesta->affected_rows > 0) {
+        if ($conn->affected_rows > 0) {
             return "Caja Vendida Correctamente";
         } else {   
             throw new MiException(1, "No se ha podido vender la caja");
@@ -472,7 +468,7 @@ class DAOOperaciones {
             
                 $caja = new CajaBackup($fila['codCaja'], $fila['altura'], 
                                     $fila['anchura'], $fila['profundidad'], $fila['material'],
-                                    $fila['color'], $fila['contenido'], $fila['fechaVenta'],
+                                    $fila['color'], $fila['contenido'], $fila['fechaAlta'], $fila['fechaVenta'],
                                     $fila['leja'], $fila['codigoEstanteria']);
             
                 return $caja;
