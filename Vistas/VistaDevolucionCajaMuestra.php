@@ -27,10 +27,12 @@ and open the template in the editor.
         ?>
         
         <center>
-        <h3>Devolucion caja</h3>
-        
-
-        <div id="contenedor">
+        <div id="contact-form" style="width: 40%; margin-left: 150px">
+            
+            <div>
+                <h2>Devolucion de Caja</h2>
+            </div>
+            
             <form name="formularioAltaCaja" action="../Controladores/ControladorDevolucionCajaMuestra.php">
                 
                 <label>Codigo</label>
@@ -76,7 +78,9 @@ and open the template in the editor.
                 </select>
                 
                 <br>
-                <input type="submit" value="Devolver" id="guardar">
+                <div>		           
+                    <button name="submit" type="submit" id="submit" >Devolver Caja</button> 
+                </div>
                 
             </form>
         </div>

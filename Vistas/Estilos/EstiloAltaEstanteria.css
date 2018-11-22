@@ -23,8 +23,6 @@ body {
    font-family: Arial, san-serif;
 }
 
-
-/* Contact Form Styles */
 h1 {
    margin: 10px 0 0 0;
 }
@@ -81,10 +79,7 @@ h4{
    cursor:pointer;
    width:100%;
    border:none;
-   background:#991D57;
-   background-image:linear-gradient(bottom, #8C1C50 0%, #991D57 52%);
-   background-image:-moz-linear-gradient(bottom, #8C1C50 0%, #991D57 52%);
-   background-image:-webkit-linear-gradient(bottom, #8C1C50 0%, #991D57 52%);
+   background: #2170C0 !important;
    color:#FFF;
    margin:0 0 5px;
    padding:10px;
@@ -92,16 +87,13 @@ h4{
 }
 
 #contact-form button[type="submit"]:hover {
-   background-image:linear-gradient(bottom, #9C215A 0%, #A82767 52%);
-   background-image:-moz-linear-gradient(bottom, #9C215A 0%, #A82767 52%);
-   background-image:-webkit-linear-gradient(bottom, #9C215A 0%, #A82767 52%);
    -webkit-transition:background 0.3s ease-in-out;
    -moz-transition:background 0.3s ease-in-out;
    transition:background-color 0.3s ease-in-out;
 }
 
 #contact-form button[type="submit"]:active {
-   box-shadow:inset 0 1px 3px rgba(0,0,0,0.5);
+   background: #2170C0;
 }
 
 input:required, textarea:required {  

@@ -30,7 +30,7 @@ try{
     $conn->commit();
     $conn->autocommit(true);
     $conn->close();
-    header('Location: ../Vistas/VistaMensaje.php?filas=Caja insertada correctamente' . '&id=2');
+    header('Location: ../Vistas/VistaMensaje.php?msg=Caja insertada correctamente');
 } catch (MiException $ex) {
     $conn->rollback();
     header('Location: ../Vistas/VistaErrores.php?ex=' . $ex);

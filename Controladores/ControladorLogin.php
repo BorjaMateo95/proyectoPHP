@@ -9,6 +9,6 @@ try{
     DAOOperaciones::loginUsuario($email, $password);
     header('Location: ../Vistas/menu.php');
 } catch (Exception $ex) {
-    header('Location: ../Vistas/VistaErrores.php?ex=' . $ex);
+    header('Location: ../Vistas/VistaLoginIncorrecto.php?ex=' . $ex);
 }
 

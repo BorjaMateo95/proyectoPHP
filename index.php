@@ -28,6 +28,7 @@ and open the template in the editor.
                     <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required>
 
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Iniciar Sesión</button>
+                    <a href="Vistas/VistaRegistro.php">Registrate</a>
                 </form>
 
             </div>

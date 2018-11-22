@@ -10,8 +10,13 @@ $numero = $_REQUEST['numero'];
 
 $estanteriaObj = new Estanteria($codigo, $numLejas, $pasillo, $numero);
 
-$respuestaInsert = DAOOperaciones::insertaEstanteria($estanteriaObj);
-header('Location: ../Vistas/VistaMensaje.php?filas=' . $respuestaInsert . '&id=1');
+try{
+    $respuestaInsert = DAOOperaciones::insertaEstanteria($estanteriaObj);
+    header('Location: ../Vistas/VistaMensaje.php?msg=Estanteria insertada correctamente');    
+} catch (Exception $ex) {
+    header('Location: ../Vistas/VistaErrores.php?ex=' . $ex);
+}
+
 
 ?>
 

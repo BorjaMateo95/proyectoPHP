@@ -17,7 +17,7 @@ try{
     $conn->commit();
     $conn->autocommit(true);
     $conn->close();
-    header('Location: ../Vistas/VistaMensaje.php?filas=' . $respuesta . '&id=2');
+    header('Location: ../Vistas/VistaMensaje.php?msg=' . $respuesta);
 } catch (Exception $ex) {
     $conn->rollback();
     header('Location: ../Vistas/VistaErrores.php?ex=' . $ex);

@@ -8,6 +8,7 @@ include_once '../Modelos/EstanteriaConCajas.php';
 include_once '../Modelos/Inventario.php';
 include_once '../Excepciones/MiException.php';
 include_once '../Modelos/CajaBackup.php';
+include_once '../Modelos/Usuario.php';
 
 class DAOOperaciones {
     
@@ -30,8 +31,11 @@ class DAOOperaciones {
         
         $pre->bind_param("siisi", $codigo, $numLejas,$ocupadas, $pasillo, $numero);
         $resultado = $pre->execute();
+        
+        if($conn->affected_rows < 1) {
+            throw new MiException(1, "Error al insertar la Estanteria"); 
+        }
 
-        return $resultado;
     }
     
      /**
@@ -490,16 +494,49 @@ class DAOOperaciones {
      */
     public function loginUsuario($email, $password) {
         global $conn;
-        $sqlUsuario = "SELECT * FROM usuario WHERE email = '$email' AND contrasena = '$password'";
-        
+        $sqlUsuario = "SELECT * FROM usuario WHERE email = '$email'";
         $resultadoUsuario = $conn->query($sqlUsuario);
-        
+                
         if($resultadoUsuario->num_rows > 0) {
-            return true;            
+            $fila = $resultadoUsuario->fetch_array();
+            
+            $verificarPass = password_verify($password, $fila['contrasena']);
+            
+            if($verificarPass) {
+                return true;
+            }else{
+                throw new MiException(1, "Contraseña incorrecta");
+            }
+                        
         }else{
             throw new MiException(1, "Email o contraseña incorrectos"); 
         }
         
+    }
+    
+    public function registroUsuario($usuario, $password2) {
+        global $conn;
+                       
+        if($usuario->getContrasena() != $password2) {
+            throw new MiException(1, "Las contraseñas no son iguales");
+        }
+        $passwordEncriptada = password_hash($password2, PASSWORD_BCRYPT);
+        
+        $ins = "INSERT INTO usuario VALUES (null, ?, ?, ?, ?, ?)";
+        $pre = $conn->prepare($ins);
+        
+        $dni = $usuario->getDni();
+        $nombre = $usuario->getNombre();
+        $apellidos = $usuario->getApellidos();
+        $email = $usuario->getEmail();
+        
+        $pre->bind_param("sssss", $dni, $nombre, $apellidos, $email, $passwordEncriptada);
+        $resultado = $pre->execute();
+        
+        if(!$resultado) {
+            throw new MiException(1, "Error al registrar el Usuario");
+        }
+    
         
     }
     

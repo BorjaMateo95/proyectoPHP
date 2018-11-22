@@ -7,15 +7,20 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Caja</title>
+        
+        <link href="Estilos/EstiloAltaEstanteria.css" type="text/css" rel="stylesheet">
+        
+        <title>Devolucion Caja</title>
                         
     </head>
     <body>
     <center>
                 
-        <h3>Devolucion de Caja</h3>
-
-        <div id="contenedor">
+        <div id="contact-form" style="width: 40%; margin-left: 150px">
+            
+            <div>
+                <h2>Devolucion de Caja</h2>
+            </div>
             <form name="formularioVentaCaja" action="../Controladores/ControladorDevolucionCaja.php">
 
                 <label>Codigo</label>
@@ -24,9 +29,9 @@ and open the template in the editor.
 
                 <br>
                 
-                <input type="submit" value="Devolucion Caja">
-                
-                </input>
+                <div>		           
+                    <button name="submit" type="submit" id="submit" >Buscar Caja Vendida</button> 
+                </div>
 
             </form>
         </div>

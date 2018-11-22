@@ -10,13 +10,17 @@ and open the template in the editor.
         <title>Caja</title>
         
         <script type="text/javascript" src="JS/JSDescripcionCaja.js"></script>
+        <link href="Estilos/EstiloAltaEstanteria.css" type="text/css" rel="stylesheet">
                 
     </head>
     <body>
     <center>
-        <h3>Venta de Caja</h3>
-
-        <div id="contenedor">
+        <div id="contact-form" style="width: 40%; margin-left: 150px">
+            
+            <div>
+                <h2>Venta de Caja</h2>
+            </div>
+            
             <form name="formularioVentaCaja" action="../Controladores/ControladorVentaCaja.php">
 
                 <label>Codigo</label>
@@ -28,14 +32,13 @@ and open the template in the editor.
                 </label>
                 <br>
                 
-                <input type="submit" value="Vender Caja">
-                
-                </input>
+                <div>		           
+                    <button name="submit" type="submit" id="submit" >Vender Caja</button> 
+                </div>
 
             </form>
         </div>
 
     </center>
-
     </body>
 </html>
