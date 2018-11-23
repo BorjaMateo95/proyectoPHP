@@ -31,21 +31,21 @@ and open the template in the editor.
                 <div>
                     <label for="altura">
                         <span class="required">Altura</span>
-                        <input type="number" id="altura" name="altura" placeholder="Altura"  required="true" />
+                        <input type="number" id="altura" name="altura" placeholder="Altura"  min="1" required="true" />
                     </label>  
                 </div>
 
                 <div>
                     <label for="anchura">
                         <span class="required">Anchura</span>
-                        <input type="number" id="anchura" name="anchura" placeholder="Anchura" required="true" />
+                        <input type="number" id="anchura" name="anchura" placeholder="Anchura"  min="1" required="true" />
                     </label>  
                 </div>
 
                 <div>
                     <label for="profundidad">
                         <span class="required">Profundidad</span>
-                        <input type="number" id="profundidad" name="profundidad" placeholder="Profundidad" required="true" />
+                        <input type="number" id="profundidad" name="profundidad" min="1" placeholder="Profundidad" required="true" />
                     </label>  
                 </div>
 
@@ -90,7 +90,7 @@ and open the template in the editor.
                 ?>     
 
                 <label>Lejas libres</label>
-                <select id="listaLejas" name="listaLejas">
+                <select id="listaLejas" name="listaLejas" required="true">
 
 
                 </select>

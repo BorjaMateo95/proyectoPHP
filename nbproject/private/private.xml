@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaDevolucionCaja.php</file>
-            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaVentaCaja.php</file>
-            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorLogin.php</file>
-            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorAJAXDescriCaja.php</file>
-            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/Estilos/EstiloAltaEstanteria.css</file>
-            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaAltaCaja.php</file>
-            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaDevolucionCajaMuestra.php</file>
-            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaErrores.php</file>
-            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaLoginIncorrecto.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

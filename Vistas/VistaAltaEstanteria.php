@@ -28,7 +28,7 @@ and open the template in the editor.
                 <div>
                     <label for="nLejas">
                         <span class="required">Numero de Lejas</span>
-                        <input type="number" id="nLejas" name="nLejas" placeholder="Numero de Lejas" required="true"/>
+                        <input type="number" id="nLejas" name="nLejas" min="1" placeholder="Numero de Lejas" required="true"/>
                     </label>  
                 </div>
 
@@ -42,7 +42,7 @@ and open the template in the editor.
                 <div>
                     <label for="numero">
                         <span class="required">Numero</span>
-                        <input type="number" id="numero" name="numero" placeholder="Numero" required="true"/>
+                        <input type="number" id="numero" name="numero" min="1" placeholder="Numero" required="true"/>
                     </label>  
                 </div>
                 

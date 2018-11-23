@@ -72,7 +72,7 @@ and open the template in the editor.
                 
                 
                 <label>Lejas libres</label>
-                <select id="listaLejas" name="listaLejas">
+                <select id="listaLejas" name="listaLejas" required="true">
                    
 
                 </select>

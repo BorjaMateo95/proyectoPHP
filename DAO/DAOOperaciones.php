@@ -53,13 +53,24 @@ class DAOOperaciones {
         $material = $caja->getMaterial();
         $color = $caja->getColor();
         $contenido = $caja->getContenido();
+        $fechaAlta = $caja->getFechaAlta();
         
+        $sqlMirarCB = "SELECT * FROM cajas_backup WHERE codCaja ='" . $codigo . "'";
+        $resultadoCB = $conn->query($sqlMirarCB);
+        
+        //$preparada->bind_param("s", $codigo);
+        //$resultadoMirarCB = $preparada->execute();
+        //$preparada->close();
+        
+        if($resultadoCB->num_rows > 0){
+            throw new MiException(1, "Error este codigo ya existe en Caja_backup");    
+        }
+ 
         $orden = "INSERT INTO cajas (codigo, altura, anchura, profundidad, material,
-                color, contenido) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $pre = $conn->prepare($orden);
+                color, contenido, fechaAlta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
-        $pre->bind_param("siiisss", $codigo, $altura, $anchura, $profundiad, $material,
-                $color, $contenido);
+        $pre = $conn->prepare($orden);
+        $pre->bind_param("siiissss", $codigo, $altura, $anchura, $profundiad, $material, $color, $contenido, $fechaAlta);
         $resultado = $pre->execute();
      
         if($conn->affected_rows < 1) {//si se cumple no ha insertado caja
@@ -430,7 +441,7 @@ class DAOOperaciones {
     public function devolucionCaja($cajaBacup) {
         global $conn;
         
-        include '../Modelos/TriggerDevolucion.php';
+        include_once '../Modelos/TriggerDevolucion.php';
         
         $sqlDeleteCajaBack = "DELETE FROM cajas_backup WHERE codCaja ='" . $cajaBacup->getCodigo() . "';";
         $resultadoDelete = $conn->query($sqlDeleteCajaBack);
@@ -520,6 +531,13 @@ class DAOOperaciones {
         if($usuario->getContrasena() != $password2) {
             throw new MiException(1, "Las contraseñas no son iguales");
         }
+        
+        $resultadoUsuario = $conn->query("SELECT * FROM usuario");
+        if($resultadoUsuario->num_rows > 0) {
+            throw new MiException(1, "Solo podemos tener un usuario.");
+        }
+        
+        
         $passwordEncriptada = password_hash($password2, PASSWORD_BCRYPT);
         
         $ins = "INSERT INTO usuario VALUES (null, ?, ?, ?, ?, ?)";
