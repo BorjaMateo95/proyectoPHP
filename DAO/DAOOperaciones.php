@@ -9,6 +9,7 @@ include_once '../Modelos/Inventario.php';
 include_once '../Excepciones/MiException.php';
 include_once '../Modelos/CajaBackup.php';
 include_once '../Modelos/Usuario.php';
+include_once '../Modelos/Almacen.php';
 
 class DAOOperaciones {
     
@@ -135,7 +136,7 @@ class DAOOperaciones {
         $resultado = $conn -> query($orden);
         $arrayEstanterias = array();
         
-        if ($resultado) {
+        if ($resultado->num_rows > 0) {
             $fila = $resultado->fetch_array();
             while ($fila) {
                 $estanteria = new Estanteria($fila['codigo'], $fila['numlejas'],
@@ -146,7 +147,7 @@ class DAOOperaciones {
                 $fila = $resultado->fetch_array();
             }
         } else {
-            return null;
+            throw new MiException(1, "No hay estanterias con lejas libres, añada una estanteria");
         }
         $conn->close();
         return $arrayEstanterias;
@@ -242,7 +243,7 @@ class DAOOperaciones {
                 
                 array_push($arrayEstanterias, $estanteriaConCaja);
                 
-                if ($fila['ocupadas'] != null) {
+                if ($fila['ocupadas'] != 0) {
                     //esa estanteria debe de tener cajas
                     $sqlOcupadas = "SELECT * FROM ocupacion WHERE idEstanteria = " . $fila['id'];
                     $resultadoOcupacion = $conn->query($sqlOcupadas);
@@ -555,6 +556,25 @@ class DAOOperaciones {
             throw new MiException(1, "Error al registrar el Usuario");
         }
     
+        
+    }
+    
+    
+    public function datosAlmacen() {
+        global $conn;
+        
+        $sql = "SELECT * FROM almacen";
+        $resultadoAlmacen = $conn->query($sql);
+        
+        if($resultadoAlmacen->num_rows > 0) {
+            $fila = $resultadoAlmacen->fetch_array();
+            return new Almacen($fila['codigo'], $fila['nombre'], $fila['direccion'], 
+                    $fila['disePasillos'], $fila['numeros']);
+        }else{
+            throw new MiException(1, "El almacén no esta cargado en la Base de Datos");
+        }
+        
+        
         
     }
     

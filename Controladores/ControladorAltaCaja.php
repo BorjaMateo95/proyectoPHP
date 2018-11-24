@@ -13,7 +13,7 @@ $profundidad = $_REQUEST['profundidad'];
 $material = $_REQUEST['material'];
 $color = $_REQUEST['color'];
 $contenido = $_REQUEST['contenido'];
-$fechaAlta = date("d-m-Y");
+$fechaAlta = date("Y-m-d");
 
 //ocupacion
 $idEstanteria = $_REQUEST['estanteriasDisponibles'];
