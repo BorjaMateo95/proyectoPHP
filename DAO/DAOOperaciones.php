@@ -433,9 +433,11 @@ class DAOOperaciones {
      */
     public function salidaCaja($codigo) {
         global $conn;
-        $sqlDelete = "DELETE FROM cajas WHERE codigo='" . $codigo . "';";
-        $respuesta = $conn->query($sqlDelete);
-                
+        
+        $sqlP = $conn->prepare("DELETE FROM cajas WHERE codigo =?");
+        $sqlP->bind_param("s", $codigo);
+        $resultadoDelete = $sqlP->execute();
+        
         if ($conn->affected_rows > 0) {
             return "Caja Vendida Correctamente";
         } else {   
@@ -458,8 +460,9 @@ class DAOOperaciones {
         
         include_once '../Modelos/TriggerDevolucion.php';
         
-        $sqlDeleteCajaBack = "DELETE FROM cajas_backup WHERE codCaja ='" . $cajaBacup->getCodigo() . "';";
-        $resultadoDelete = $conn->query($sqlDeleteCajaBack);
+        $sqlP = $conn->prepare("DELETE FROM cajas_backup WHERE codCaja =?");
+        $sqlP->bind_param("s", $cajaBacup->getCodigo());
+        $resultadoDelete = $sqlP->execute();
         
         if(!$resultadoDelete) {
             throw new MiException(1, "ERROR en el delete cajasbackup");
@@ -487,10 +490,11 @@ class DAOOperaciones {
      */
     public function dameCajaDevolucion($codigo) {
         global $conn;
-        
-        $sqlCaja = "SELECT * FROM cajas_backup WHERE codCaja = '$codigo'";
-        
-            $resultadosqlCaja = $conn->query($sqlCaja);
+                
+        $sqlP = $conn->prepare("SELECT * FROM cajas_backup WHERE codCaja =?");
+        $sqlP->bind_param("s", $codigo);
+        $sqlP->execute();
+        $resultadosqlCaja = $sqlP->get_result();
         
             if($resultadosqlCaja->num_rows > 0) {
             
@@ -520,8 +524,11 @@ class DAOOperaciones {
      */
     public function loginUsuario($email, $password) {
         global $conn;
-        $sqlUsuario = "SELECT * FROM usuario WHERE email = '$email'";
-        $resultadoUsuario = $conn->query($sqlUsuario);
+        
+        $sqlP = $conn->prepare("SELECT * FROM usuario WHERE email =?");
+        $sqlP->bind_param("s", $email);
+        $sqlP->execute();
+        $resultadoUsuario = $sqlP->get_result();
                 
         if($resultadoUsuario->num_rows > 0) {
             $fila = $resultadoUsuario->fetch_array();
