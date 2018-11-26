@@ -12,8 +12,6 @@ $password2 = $_REQUEST['password2'];
 
 $usuario = new Usuario($dni, $nombre, $apellidos, $email, $password1);
 
-
-
 try{
     DAOOperaciones::registroUsuario($usuario, $password2);
     header('Location: ../index.php');

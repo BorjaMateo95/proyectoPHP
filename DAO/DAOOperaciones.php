@@ -218,13 +218,13 @@ class DAOOperaciones {
     }
     
     
-     /**
-     * dameInventario devuelve un objeto inventario.
-     * devuelve MiException
-     * @global type $conn
-     * @return object
-     */
-    
+   
+   /**
+    * dameInventario
+    * @global type $conn
+    * @return Inventario
+    * @throws MiException
+    */ 
     public function dameInventario() {
         global $conn;
         
@@ -365,7 +365,13 @@ class DAOOperaciones {
         
     }
     
-    
+     /**
+     * dimeDescripcionUnaCaja devuelve un objeto Caja
+     * @global type $conn
+     * @param type $codcaja
+     * @return Caja
+     * @throws MiException
+     */
     public function dimeDescripcionUnaCaja($codcaja) {
         global $conn;
 
@@ -387,6 +393,14 @@ class DAOOperaciones {
         }
     }
     
+    
+     /**
+     * descripcionCajaBackup devuelve un objeto CajaBackup
+     * @global type $conn
+     * @param type $codcaja
+     * @return CajaBackup
+     * @throws MiException
+     */
     public function descripcionCajaBackup($codcaja) {
             $sqlCaja = "SELECT * FROM cajas_backup WHERE codCaja = '$codcaja'";
         
@@ -526,6 +540,15 @@ class DAOOperaciones {
         
     }
     
+    
+    /**
+     * registroUsuario registra un nuevo usuario en la BD
+     * @global type $conn
+     * @param type $usuario
+     * @param type $password2
+     * @throws MiException
+     */
+    
     public function registroUsuario($usuario, $password2) {
         global $conn;
                        
@@ -560,6 +583,12 @@ class DAOOperaciones {
     }
     
     
+    /**
+     * datosAlmacen devuelve los datos de nuestro almacen.
+     * @global type $conn
+     * @return Almacen
+     * @throws MiException
+     */
     public function datosAlmacen() {
         global $conn;
         
