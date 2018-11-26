@@ -10,7 +10,7 @@ try {
     $_SESSION['caja'] = $resultado;
     header('Location: ../Vistas/VistaDescriCaja.php');
 } catch (MiException $ex) {
-    header('Location: ../Vistas/VistaErrores.php?ex=' . $ex);
+    header('Location: ../Vistas/VistaErroresDescriCaja.php?ex=' . $ex);
 }
 
 

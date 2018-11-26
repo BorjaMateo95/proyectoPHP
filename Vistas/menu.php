@@ -34,7 +34,7 @@ and open the template in the editor.
                         <ul class="dropdown-menu">
                             <li><a href="../Controladores/ControladorListadoCajas.php">Listado de Cajas</a></li>
                             <li><a href="../Controladores/ControladorAltaCajaEstanterias.php">Insertar Caja</a></li>
-                            <li><a href="VistaVentaCaja.php?opcion=Venta">Vender Caja</a></li>
+                            <li><a href="VistaVentaCaja.php">Vender Caja</a></li>
                             <li><a href="VistaDevolucionCaja.php">Devolver Caja</a></li>
                         </ul>
                     </li>

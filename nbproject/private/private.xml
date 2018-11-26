@@ -3,15 +3,39 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorLogin.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorListadoCajas.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaRegistro.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaMensaje.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaDescriCaja.php</file>
             <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorAltaCaja.php</file>
-            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorAJAXDescriCaja.php</file>
-            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/menu.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorInventario.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaListadoEstanterias.php</file>
             <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorAJAXLejasLibres.php</file>
-            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaErrores.php</file>
-            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/DAO/DAOOperaciones.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaDevolucionCajaMuestra.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorListadoEstanterias.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaDevolucionCaja.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaListadoCajas.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/index.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaAltaCaja.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorAltaEstanteria.php</file>
             <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorAltaCajaEstanterias.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaErrores.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorDevolucionCajaMuestra.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorRegistro.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorVentaCaja.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaAltaEstanteria.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorAJAXDescriCaja.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaRegistroIncorrecto.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/DAO/DAOOperaciones.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaInventario.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaLejasDisponibles.php</file>
             <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaLoginIncorrecto.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorLogin.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/VistaVentaCaja.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Excepciones/MiException.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Vistas/menu.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/Controladores/ControladorDevolucionCaja.php</file>
+            <file>file:/C:/xampp/htdocs/DAW/DWES/ProyectoPHPAlmacen_Borja/DAO/ConexionBD.php</file>
         </group>
     </open-files>
 </project-private>

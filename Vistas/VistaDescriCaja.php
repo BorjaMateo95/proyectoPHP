@@ -20,8 +20,8 @@ and open the template in the editor.
             ?>
                     <label>
                         
-                        <?php echo "Codigo: " .$caja->getCodigo() . " Altura: " . $caja->getAltura()
-                                . " Anchura: " . $caja->getAnchura(); ?>
+                        <?php echo "Codigo: " .$caja->getCodigo() . " Material: " . $caja->getMaterial()
+                                . " Contenido: " . $caja->getContenido() . " Fecha Alta: " . $caja->getFechaAlta(); ?>
                     </label>
              <?php
             

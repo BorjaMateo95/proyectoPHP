@@ -18,11 +18,11 @@ $leja = $cajaBacup->getLeja();
 $triggerDevolucionCaja = "CREATE TRIGGER `devolucionCaja`
     BEFORE DELETE ON `cajas_backup` FOR EACH ROW BEGIN
     INSERT INTO cajas VALUES (null, '" . $codigo ."', " . $altura ." , " . $anchura ." , " . $profundida ." ,
-    '" . $color ."' , '" . $material ."' , '" . $contenido ."' , '" . $fechaAlta . "');
+    '" . $material ."' , '" . $color ."' , '" . $contenido ."' , '" . $fechaAlta . "');
     INSERT INTO ocupacion VALUES (null, (SELECT id FROM cajas WHERE codigo = '" . $codigo . "') , " . $idEstanteria .","
         . " " . $leja .");
     UPDATE estanterias SET ocupadas = ocupadas +1 WHERE id = " . $idEstanteria . ";"
         . "END";
 
-$resultadoTrigger = $conn->query($triggerDevolucionCaja);//controlar exception
+$resultadoTrigger = $conn->query($triggerDevolucionCaja);
 

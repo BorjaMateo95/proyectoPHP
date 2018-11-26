@@ -46,6 +46,7 @@ class DAOOperaciones {
      */    
     public function insertaCaja($caja, $ocupacion) {        
         global $conn;
+        
         //cajas
         $codigo = $caja->getCodigo();
         $altura = $caja->getAltura();
@@ -55,13 +56,11 @@ class DAOOperaciones {
         $color = $caja->getColor();
         $contenido = $caja->getContenido();
         $fechaAlta = $caja->getFechaAlta();
-        
-        $sqlMirarCB = "SELECT * FROM cajas_backup WHERE codCaja ='" . $codigo . "'";
-        $resultadoCB = $conn->query($sqlMirarCB);
-        
-        //$preparada->bind_param("s", $codigo);
-        //$resultadoMirarCB = $preparada->execute();
-        //$preparada->close();
+                
+        $sqlP = $conn->prepare("SELECT * FROM cajas_backup WHERE codCaja =?");
+        $sqlP->bind_param("s", $codigo);
+        $sqlP->execute();
+        $resultadoCB = $sqlP->get_result();
         
         if($resultadoCB->num_rows > 0){
             throw new MiException(1, "Error este codigo ya existe en Caja_backup");    
@@ -97,9 +96,11 @@ class DAOOperaciones {
             throw new MiException(1, "Error al insertar ocupación");
         }
         
-        //estanteria (sumar uno en ocupacion)
-        $ordenSelectEstanteria = "SELECT * FROM estanterias WHERE id = " . $ocupacion->getIdEstanteria();
-        $resultado = $conn->query($ordenSelectEstanteria);
+        
+        $sqlP2 = $conn->prepare("SELECT * FROM estanterias WHERE id =?");
+        $sqlP2->bind_param("i", $ocupacion->getIdEstanteria());
+        $sqlP2->execute();
+        $resultado = $sqlP2->get_result();
         
         if ($resultado) {
             $fila = $resultado->fetch_array();
@@ -163,10 +164,12 @@ class DAOOperaciones {
     
     public function dimeLejasLibres($idEstanteria) {
         global $conn;
-        
-        $sqlEstanteria = "SELECT * FROM estanterias WHERE id = '$idEstanteria'";
-        
-        $resultadosqlEstanteria = $conn->query($sqlEstanteria);
+                
+        $sqlP = $conn->prepare("SELECT * FROM estanterias WHERE id =?");
+        $sqlP->bind_param("i", $idEstanteria);
+        $sqlP->execute();
+        $resultadosqlEstanteria = $sqlP->get_result();
+                
         $fila = $resultadosqlEstanteria->fetch_array();
         $totalLejasEstanteria = $fila['numlejas'];//tenemos el total de lejas de una estanteria
         
@@ -180,22 +183,21 @@ class DAOOperaciones {
         $numeroFilasDevuelto = $resulSqlOcupacion->num_rows;
         
         if ($numeroFilasDevuelto > 0) {//si tenemos alguna ocupacion de esa estanteria
-            $filaOcupacion = $resulSqlOcupacion->fetch_array();
+            $filaOcu = $resulSqlOcupacion->fetch_array();
             
-            $arrayLejasOcupadas = array();//array con las lejas ocupadas
-            while ($filaOcupacion) {
-                array_push($arrayLejasOcupadas, $filaOcupacion['nLeja']);
-                $filaOcupacion = $resulSqlOcupacion->fetch_array();
+            $aLejasOc = array();//array con las lejas ocupadas
+            for($r = 0; $r < count($filaOcu); $r++) {
+                array_push($aLejasOc, $filaOcu['nLeja']);
+                $filaOcu = $resulSqlOcupacion->fetch_array();
             }
-            
-                                 
-            $arrayLejasLibres = array();   
+                          
+            $arrayLejasLibres = array();
             for ($i = 0; $i < count($totalLejasArray); $i++) {
                                
                 $meterAlArray = true;
                 
-                for($e = 0; $e < count($arrayLejasOcupadas); $e++) {
-                    if($totalLejasArray[$i] == $arrayLejasOcupadas[$e]) {
+                for($e = 0; $e < count($aLejasOc); $e++) {
+                    if($totalLejasArray[$i] == $aLejasOc[$e]) {
                         $meterAlArray = false;
                         break;
                     }
@@ -374,10 +376,11 @@ class DAOOperaciones {
      */
     public function dimeDescripcionUnaCaja($codcaja) {
         global $conn;
-
-        $sqlCaja = "SELECT * FROM cajas WHERE codigo = '$codcaja'";
-
-        $resultadosqlCaja = $conn->query($sqlCaja);
+       
+        $sqlP = $conn->prepare("SELECT * FROM cajas WHERE codigo =?");
+        $sqlP->bind_param("s", $codcaja);
+        $sqlP->execute();
+        $resultadosqlCaja = $sqlP->get_result();
 
         if ($resultadosqlCaja->num_rows > 0) {
 
@@ -402,10 +405,13 @@ class DAOOperaciones {
      * @throws MiException
      */
     public function descripcionCajaBackup($codcaja) {
-            $sqlCaja = "SELECT * FROM cajas_backup WHERE codCaja = '$codcaja'";
-        
-            $resultadosqlCaja = $conn->query($sqlCaja);
-        
+         global $conn;
+         
+        $sqlP = $conn->prepare("SELECT * FROM cajas_backup WHERE codCaja =?");
+        $sqlP->bind_param("s", $codcaja);
+        $sqlP->execute();
+        $resultadosqlCaja = $sqlP->get_result();
+                
             if($resultadosqlCaja->num_rows > 0) {
             
                 $fila = $resultadosqlCaja->fetch_array();
