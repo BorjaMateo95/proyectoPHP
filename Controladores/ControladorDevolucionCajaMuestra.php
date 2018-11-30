@@ -13,7 +13,7 @@ $cajaBackup->setLeja($numLeja);
 $conn->autocommit(false);
 
 try{
-    $respuesta = DAOOperaciones::devolucionCaja($cajaBackup);
+    $respuesta = DAOOperaciones::devolverCajaExamen($cajaBackup, date("Y-m-d"));
     $conn->commit();
     $conn->autocommit(true);
     $conn->close();

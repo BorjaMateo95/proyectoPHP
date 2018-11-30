@@ -10,6 +10,8 @@ include_once '../Excepciones/MiException.php';
 include_once '../Modelos/CajaBackup.php';
 include_once '../Modelos/Usuario.php';
 include_once '../Modelos/Almacen.php';
+include_once '../Modelos/CajaConUbicacion.php';
+include_once '../Modelos/CajaBackupSegui.php';
 
 class DAOOperaciones {
     
@@ -485,6 +487,100 @@ class DAOOperaciones {
         return "Caja devuelta correctamente!";
     }
     
+    
+    public function devolverCajaExamen($cajaBacup, $fechaDevolucion) {
+        
+        global $conn;
+        
+        include_once '../Modelos/TriggerDevolucionExamen.php';
+        
+        //leer ultima caja_backup ultima vez vendida.
+        $sqlExamen = "SELECT * FROM cajas_backup WHERE codCaja ='" . $cajaBacup->getCodigo() ."' AND fechaDevolucion is null";
+        $resultSQLExamen = $conn->query($sqlExamen);
+        
+        if ($resultSQLExamen->num_rows > 0) {
+            $fila = $resultSQLExamen->fetch_array();
+ 
+            $sqlP = $conn->prepare("UPDATE cajas_backup SET fechaDevolucion = '" . $fechaDevolucion 
+                . "' WHERE id =?");
+            $sqlP->bind_param("i", $fila['id']);
+            $resultadoDelete = $sqlP->execute();
+        
+            if(!$resultadoDelete) {
+                throw new MiException(1, "ERROR en el update cajasbackup");
+            }
+        
+            if(!$resultadoBorraTrigger){
+                throw new MiException(1, "ERROR al borrar trigger"); 
+            }
+        
+            if(!$resultadoTrigger) {
+                throw new MiException(1, "ERROR en el trigger examen");
+            }
+                
+            return "Caja devuelta correctamente!";
+        
+        }
+        
+    }
+    
+    public function seguimientoCaja($codigo) {
+        //primero buscamos la caja en la tabla Caja por si esta en el almacen
+        //si esta creamos un objeto CajaConUbicacion y lo devolvemos.
+        
+        global $conn;
+        
+        $sqlP = $conn->prepare("SELECT c.codigo, c.altura, c.anchura, c.profundidad, 
+                                c.material, c.color, c.contenido, c.fechaAlta, e.codigo as 'codigoES',
+                                o.nLeja
+                                FROM cajas c, ocupacion o, estanterias e
+                                WHERE c.id = o.idCaja AND o.idEstanteria = e.id AND c.codigo =?");
+        
+        $sqlP->bind_param("s", $codigo);
+        $sqlP->execute();
+        $resultadosqlCaja = $sqlP->get_result();
+        
+        if($resultadosqlCaja->num_rows > 0) {
+            $fila = $resultadosqlCaja->fetch_array();
+            
+            return new CajaConUbicacion($fila['codigo'], $fila['altura'], $fila['anchura'],
+                    $fila['profundidad'], $fila['material'], $fila['color'], $fila['contenido'],
+                    $fila['fechaAlta'], $fila['codigoES'], $fila['nLeja']);
+            
+         } else {
+             //buscamos en caja_backup
+             
+            $sqlCB = $conn->prepare("SELECT * FROM cajas_backup WHERE codCaja =?");
+        
+            $sqlCB->bind_param("s", $codigo);
+            $sqlCB->execute();
+            $resultadosqlCajaBackup = $sqlCB->get_result();
+            
+            if($resultadosqlCajaBackup->num_rows > 0) {
+                $filaB = $resultadosqlCajaBackup->fetch_array();
+                
+                for ($i = 0; $i < $resultadosqlCajaBackup->num_rows; $i++) {
+                    if($filaB['fecha'] != null) {
+                        $filaB = $resultadosqlCajaBackup->fetch_array();
+                    }else{
+                        break;
+                    }
+                }
+                
+                return new CajaBackupSegui($filaB['codCaja'], $filaB['altura'], 
+                                    $filaB['anchura'], $filaB['profundidad'], $filaB['material'],
+                                    $filaB['color'], $filaB['contenido'], $filaB['fechaAlta'], $filaB['fechaVenta'],
+                                    $filaB['leja'], $filaB['codigoEstanteria'], $resultadosqlCajaBackup->num_rows-1);
+                
+            }
+             
+
+        }
+       
+        throw new MiException(1, "Esta caja no existe ni en el almacen ni en caja_backup"); 
+        
+    }
+    
 
 
     /**
@@ -497,7 +593,7 @@ class DAOOperaciones {
     public function dameCajaDevolucion($codigo) {
         global $conn;
                 
-        $sqlP = $conn->prepare("SELECT * FROM cajas_backup WHERE codCaja =?");
+        $sqlP = $conn->prepare("SELECT * FROM cajas_backup WHERE codCaja =? AND fechaDevolucion is null");
         $sqlP->bind_param("s", $codigo);
         $sqlP->execute();
         $resultadosqlCaja = $sqlP->get_result();
@@ -615,10 +711,9 @@ class DAOOperaciones {
         }else{
             throw new MiException(1, "El almacén no esta cargado en la Base de Datos");
         }
-        
-        
-        
+            
     }
+    
     
     
     

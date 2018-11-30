@@ -1,7 +1,8 @@
+
 <?php
 
 //Borramos el trigger si existe
-$sqlBorrarTrigger = "DROP TRIGGER IF EXISTS `devolucionCaja`";
+$sqlBorrarTrigger = "DROP TRIGGER IF EXISTS `devolucionCajaExamen`";
 $resultadoBorraTrigger = $conn->query($sqlBorrarTrigger);//controlar exception
 
 $codigo = $cajaBacup->getCodigo();
@@ -15,8 +16,8 @@ $fechaAlta = $cajaBacup->getFechaAlta();
 $idEstanteria = $cajaBacup->getIdEstanteria();
 $leja = $cajaBacup->getLeja();
 
-$triggerDevolucionCaja = "CREATE TRIGGER `devolucionCaja`
-    BEFORE DELETE ON `cajas_backup` FOR EACH ROW BEGIN
+$triggerDevolucionCaja = "CREATE TRIGGER `devolucionCajaExamen`
+    BEFORE UPDATE ON `cajas_backup` FOR EACH ROW BEGIN
     INSERT INTO cajas VALUES (null, '" . $codigo ."', " . $altura ." , " . $anchura ." , " . $profundida ." ,
     '" . $material ."' , '" . $color ."' , '" . $contenido ."' , '" . $fechaAlta . "');
     INSERT INTO ocupacion VALUES (null, (SELECT id FROM cajas WHERE codigo = '" . $codigo . "') , " . $idEstanteria .","
@@ -25,5 +26,4 @@ $triggerDevolucionCaja = "CREATE TRIGGER `devolucionCaja`
         . "END";
 
 $resultadoTrigger = $conn->query($triggerDevolucionCaja);
-
 

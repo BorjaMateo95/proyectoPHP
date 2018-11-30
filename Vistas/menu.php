@@ -46,6 +46,7 @@ and open the template in the editor.
                         </ul>
                     </li>
                     <li><a href="../Controladores/ControladorInventario.php">Inventario</a></li>
+                    <li><a href="VistaSeguimientoCaja.php">Seguimiento Caja</a></li>
                 </ul>
             </div>
         </nav>
